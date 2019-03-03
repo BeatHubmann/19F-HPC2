@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <math.h>
-//#include <stdlib.h>
 #include <cstdlib>
+#include <algorithm>
+#include <utility>
 #include <cstring>
 #include "auxiliar/auxiliar.hpp"
 
