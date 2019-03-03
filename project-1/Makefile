@@ -1,6 +1,6 @@
-CFLAGS = -O2
+CFLAGS = -O2 -std=c++17
 #CFLAGS = -O0 -g
-LFLAGS = 
+LFLAGS =
 
 BINARIES = heat2d
 
@@ -17,7 +17,7 @@ auxiliar/auxiliar.o:
 	$(MAKE) -C auxiliar
 
 %.o: %.cpp
-	$(CC) -c $(CFLAGS) $< 
+	$(CC) -c $(CFLAGS) $< -qopt-report=3 -qopt-report-phase=vec
 
 .PHONY: clean
 clean:

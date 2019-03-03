@@ -17,6 +17,10 @@ int main(int argc, char** argv)
 			if(!strcmp(argv[i], "-s") || !strcmp(argv[i], "--save"))   { s.saveOutput = true; }
 			if(!strcmp(argv[i], "-v") || !strcmp(argv[i], "--verify")) { s.checkSolution = true;}
 			if(!strcmp(argv[i], "-h") || !strcmp(argv[i], "--help"))   { s.printHelp(); exit(0); }
+      // add arguments for grid parameters
+      if(!strcmp(argv[i], "-gc")) s.gridCount= atoi(argv[++i]);
+      if(!strcmp(argv[i], "-ur")) s.upRelaxations= atoi(argv[++i]);
+      if(!strcmp(argv[i], "-dr")) s.downRelaxations= atoi(argv[++i]);
 	}
 
   s.loadProblem();
