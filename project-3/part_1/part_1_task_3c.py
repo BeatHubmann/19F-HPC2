@@ -18,28 +18,14 @@ class target_log_coin_flip():
     # TODO : use the "target_coin_flip" class as a starting point
     #        and edit appropriately to convert to logarithmic scale
     def __init__(self, num_tosses, num_heads):
-        self.num_tosses = num_tosses
         self.num_heads = num_heads
         self.num_tails = num_tosses - num_heads
         
     def evaluate(self, H):
-        # samples from the posterior
-        if 0.0 <= H <= 1.0:
-            log_pH = 0.0
+        if 0.0 < H < 1.0:
+            return self.num_heads * np.log(H) + self.num_tails * np.log(1 - H)
         else:
-            log_pH = -np.inf
-        
-        if H <= 0:
-            log_H = -np.inf
-        else:
-            log_H = np.log(H)
-            
-        if H >= 1:
-            log_1_H = -np.inf
-        else:
-            log_1_H = np.log(1 - H)
-            
-        return self.num_heads * log_H + self.num_tails * log_1_H + log_pH
+            return -np.inf
     
 def MCMC(target, starting_sample, num_iters=1e6, burnin=1e4):
     print("Running MCMC")
