@@ -1,0 +1,34 @@
+[Korali] Starting TMCMC. Parameters: 3, Seed: 0x5CA0D776
+[Korali] Generation 0 - Time: 33.032195s, Annealing: 0.00%, Acceptance: 100.00%
+[Korali] Generation 1 - Time: 3.328683s, Annealing: 7.61%, Acceptance: 49.45%
+[Korali] Generation 2 - Time: 3.357518s, Annealing: 19.45%, Acceptance: 50.93%
+[Korali] Generation 3 - Time: 3.368001s, Annealing: 37.10%, Acceptance: 48.71%
+[Korali] Generation 4 - Time: 3.387735s, Annealing: 70.33%, Acceptance: 49.24%
+[Korali] Finished. Evidence: -122.158929.
+[Korali] Total Time: 46.598142s - Sampling Time: 46.474131s - Engine Time: 0.123969s.
+[Korali] Saving results to file: tmcmc.txt.
+[Korali] Starting TMCMC. Parameters: 5, Seed: 0x5CA0D776
+[Korali] Generation 0 - Time: 33.608048s, Annealing: 0.00%, Acceptance: 100.00%
+[Korali] Generation 1 - Time: 3.787736s, Annealing: 6.16%, Acceptance: 50.21%
+[Korali] Generation 2 - Time: 3.877246s, Annealing: 12.95%, Acceptance: 53.76%
+[Korali] Generation 3 - Time: 3.958197s, Annealing: 19.39%, Acceptance: 51.50%
+[Korali] Generation 4 - Time: 4.009036s, Annealing: 27.46%, Acceptance: 49.01%
+[Korali] Generation 5 - Time: 4.026064s, Annealing: 43.55%, Acceptance: 48.01%
+[Korali] Generation 6 - Time: 4.034069s, Annealing: 77.43%, Acceptance: 48.89%
+[Korali] Finished. Evidence: -115.557590.
+[Korali] Total Time: 57.508220s - Sampling Time: 57.300395s - Engine Time: 0.207774s.
+[Korali] Saving results to file: tmcmc.txt.
+[Korali] Starting TMCMC. Parameters: 7, Seed: 0x5CA0D776
+[Korali] Generation 0 - Time: 34.265250s, Annealing: 0.00%, Acceptance: 100.00%
+[Korali] Generation 1 - Time: 4.281534s, Annealing: 5.31%, Acceptance: 50.63%
+[Korali] Generation 2 - Time: 4.417991s, Annealing: 11.12%, Acceptance: 53.65%
+[Korali] Generation 3 - Time: 4.545829s, Annealing: 16.46%, Acceptance: 53.17%
+[Korali] Generation 4 - Time: 4.637275s, Annealing: 21.50%, Acceptance: 53.11%
+[Korali] Generation 5 - Time: 4.679911s, Annealing: 26.92%, Acceptance: 51.71%
+[Korali] Generation 6 - Time: 4.678683s, Annealing: 33.18%, Acceptance: 51.63%
+[Korali] Generation 7 - Time: 4.676100s, Annealing: 41.03%, Acceptance: 50.62%
+[Korali] Generation 8 - Time: 4.654426s, Annealing: 53.87%, Acceptance: 48.23%
+[Korali] Generation 9 - Time: 4.647539s, Annealing: 81.68%, Acceptance: 48.87%
+[Korali] Finished. Evidence: -94.663675.
+[Korali] Total Time: 75.763137s - Sampling Time: 75.484538s - Engine Time: 0.278532s.
+[Korali] Saving results to file: tmcmc.txt.

@@ -1,0 +1,457 @@
+Sender: LSF System <lsfadmin@eu-ms-001-02>
+Subject: Job 88292854: <./task2a> in cluster <euler> Done
+
+Job <./task2a> was submitted from host <eu-login-15-ng> by user <bhubmann> in cluster <euler> at Sun Mar 31 16:54:17 2019
+Job was executed on host(s) <eu-ms-001-02>, in queue <light.5d>, as user <bhubmann> in cluster <euler> at Sun Mar 31 16:54:29 2019
+</cluster/home/bhubmann> was used as the home directory.
+</cluster/home/bhubmann/project-3/part_2/task2> was used as the working directory.
+Started at Sun Mar 31 16:54:29 2019
+Terminated at Sun Mar 31 16:55:16 2019
+Results reported at Sun Mar 31 16:55:16 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+./task2a
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   45.50 sec.
+    Max Memory :                                 6 MB
+    Average Memory :                             4.00 MB
+    Total Requested Memory :                     1024.00 MB
+    Delta Memory :                               1018.00 MB
+    Max Swap :                                   -
+    Max Processes :                              3
+    Max Threads :                                4
+    Run time :                                   51 sec.
+    Turnaround time :                            60 sec.
+
+The output (if any) follows:
+
+[Korali] Starting CMAES. Parameters: 3, Seed: 0x5CA0D4A7
+[Korali] Gen 1 - Elapsed Time: 0.456880, Fitness Change: 9.37e+00
+[Korali] Gen 2 - Elapsed Time: 0.421046, Fitness Change: 1.34e+01
+[Korali] Gen 3 - Elapsed Time: 0.421342, Fitness Change: 1.52e+01
+[Korali] Gen 4 - Elapsed Time: 0.421499, Fitness Change: 1.53e+01
+[Korali] Gen 5 - Elapsed Time: 0.421251, Fitness Change: 1.11e+01
+[Korali] Gen 6 - Elapsed Time: 0.422045, Fitness Change: 1.38e+01
+[Korali] Gen 7 - Elapsed Time: 0.421520, Fitness Change: 7.19e+00
+[Korali] Gen 8 - Elapsed Time: 0.424061, Fitness Change: 1.08e+01
+[Korali] Gen 9 - Elapsed Time: 0.422430, Fitness Change: 1.20e+01
+[Korali] Gen 10 - Elapsed Time: 0.421734, Fitness Change: 1.14e+01
+[Korali] Gen 11 - Elapsed Time: 0.422276, Fitness Change: 1.69e+01
+[Korali] Gen 12 - Elapsed Time: 0.422166, Fitness Change: 1.94e+01
+[Korali] Gen 13 - Elapsed Time: 0.422351, Fitness Change: 1.77e+01
+[Korali] Gen 14 - Elapsed Time: 0.422687, Fitness Change: 2.77e+01
+[Korali] Gen 15 - Elapsed Time: 0.423803, Fitness Change: 1.26e+01
+[Korali] Gen 16 - Elapsed Time: 0.422352, Fitness Change: 1.05e+01
+[Korali] Gen 17 - Elapsed Time: 0.422329, Fitness Change: 1.57e+01
+[Korali] Gen 18 - Elapsed Time: 0.422485, Fitness Change: 7.23e+00
+[Korali] Gen 19 - Elapsed Time: 0.423064, Fitness Change: 5.92e+00
+[Korali] Gen 20 - Elapsed Time: 0.423368, Fitness Change: 4.44e+00
+[Korali] Gen 21 - Elapsed Time: 0.422298, Fitness Change: 4.50e+00
+[Korali] Gen 22 - Elapsed Time: 0.422441, Fitness Change: 2.55e+00
+[Korali] Gen 23 - Elapsed Time: 0.422306, Fitness Change: 8.64e-01
+[Korali] Gen 24 - Elapsed Time: 0.421733, Fitness Change: 5.18e-01
+[Korali] Gen 25 - Elapsed Time: 0.423824, Fitness Change: 3.91e-01
+[Korali] Gen 26 - Elapsed Time: 0.421949, Fitness Change: 2.26e-01
+[Korali] Gen 27 - Elapsed Time: 0.425233, Fitness Change: 6.92e-02
+[Korali] Gen 28 - Elapsed Time: 0.423688, Fitness Change: 5.78e-02
+[Korali] Gen 29 - Elapsed Time: 0.422856, Fitness Change: 4.75e-02
+[Korali] Gen 30 - Elapsed Time: 0.425098, Fitness Change: 1.68e-02
+[Korali] Gen 31 - Elapsed Time: 0.422353, Fitness Change: 1.68e-02
+[Korali] Gen 32 - Elapsed Time: 0.424048, Fitness Change: 1.06e-02
+[Korali] Gen 33 - Elapsed Time: 0.421956, Fitness Change: 1.06e-02
+[Korali] Gen 34 - Elapsed Time: 0.423627, Fitness Change: 5.22e-03
+[Korali] Gen 35 - Elapsed Time: 0.422538, Fitness Change: 2.59e-03
+[Korali] Gen 36 - Elapsed Time: 0.421724, Fitness Change: 2.59e-03
+[Korali] Gen 37 - Elapsed Time: 0.422847, Fitness Change: 4.10e-04
+[Korali] Gen 38 - Elapsed Time: 0.422582, Fitness Change: 3.53e-04
+[Korali] Gen 39 - Elapsed Time: 0.422760, Fitness Change: 1.78e-04
+[Korali] Gen 40 - Elapsed Time: 0.423047, Fitness Change: 5.59e-05
+[Korali] Gen 41 - Elapsed Time: 0.421744, Fitness Change: 5.59e-05
+[Korali] Gen 42 - Elapsed Time: 0.422770, Fitness Change: 5.59e-05
+[Korali] Gen 43 - Elapsed Time: 0.424425, Fitness Change: 5.75e-06
+[Korali] Gen 44 - Elapsed Time: 0.422587, Fitness Change: 3.04e-06
+[Korali] Gen 45 - Elapsed Time: 0.422725, Fitness Change: 3.33e-07
+[Korali] Gen 46 - Elapsed Time: 0.425321, Fitness Change: 3.06e-07
+[Korali] Gen 47 - Elapsed Time: 0.423308, Fitness Change: 1.80e-07
+[Korali] Gen 48 - Elapsed Time: 0.423991, Fitness Change: 1.80e-07
+[Korali] Gen 49 - Elapsed Time: 0.422273, Fitness Change: 1.64e-08
+[Korali] Gen 50 - Elapsed Time: 0.422438, Fitness Change: 1.64e-08
+[Korali] Gen 51 - Elapsed Time: 0.422977, Fitness Change: 1.21e-08
+[Korali] Gen 52 - Elapsed Time: 0.422609, Fitness Change: 3.59e-09
+[Korali] Gen 53 - Elapsed Time: 0.422415, Fitness Change: 2.06e-09
+[Korali] Gen 54 - Elapsed Time: 0.423832, Fitness Change: 3.44e-10
+[Korali] Gen 55 - Elapsed Time: 0.422547, Fitness Change: 2.02e-10
+[Korali] Gen 56 - Elapsed Time: 0.422853, Fitness Change: 1.81e-10
+[Korali] Gen 57 - Elapsed Time: 0.421970, Fitness Change: 6.87e-11
+[Korali] Gen 58 - Elapsed Time: 0.422402, Fitness Change: 6.87e-11
+[Korali] Gen 59 - Elapsed Time: 0.422062, Fitness Change: 1.40e-11
+[Korali] Gen 60 - Elapsed Time: 0.433106, Fitness Change: 1.36e-11
+[Korali] Gen 61 - Elapsed Time: 0.424381, Fitness Change: 1.99e-12
+[Korali] Gen 62 - Elapsed Time: 0.423416, Fitness Change: 1.99e-12
+[Korali] Gen 63 - Elapsed Time: 0.422469, Fitness Change: 3.98e-13
+[Korali] Finished - Reason: Function value differences (3.98e-13) < (1.00e-12)
+[Korali] Parameter 'Sigma' Value: 6.112970
+[Korali] Parameter 'xpos_single' Value: 0.721352
+[Korali] Parameter 'ypos_single' Value: 0.754621
+[Korali] Total Elapsed Time: 26.678495s
+[Korali] Starting CMAES. Parameters: 5, Seed: 0x5CA0D4A7
+[Korali] Gen 1 - Elapsed Time: 0.051505, Fitness Change: 1.50e+01
+[Korali] Gen 2 - Elapsed Time: 0.050545, Fitness Change: 1.94e+01
+[Korali] Gen 3 - Elapsed Time: 0.051194, Fitness Change: 1.76e+01
+[Korali] Gen 4 - Elapsed Time: 0.050939, Fitness Change: 1.59e+01
+[Korali] Gen 5 - Elapsed Time: 0.051267, Fitness Change: 1.22e+01
+[Korali] Gen 6 - Elapsed Time: 0.050946, Fitness Change: 1.07e+01
+[Korali] Gen 7 - Elapsed Time: 0.051306, Fitness Change: 9.46e+00
+[Korali] Gen 8 - Elapsed Time: 0.051752, Fitness Change: 1.03e+01
+[Korali] Gen 9 - Elapsed Time: 0.051430, Fitness Change: 1.47e+01
+[Korali] Gen 10 - Elapsed Time: 0.053426, Fitness Change: 1.20e+01
+[Korali] Gen 11 - Elapsed Time: 0.051914, Fitness Change: 1.82e+01
+[Korali] Gen 12 - Elapsed Time: 0.051656, Fitness Change: 2.84e+01
+[Korali] Gen 13 - Elapsed Time: 0.051133, Fitness Change: 2.94e+01
+[Korali] Gen 14 - Elapsed Time: 0.051146, Fitness Change: 6.48e+01
+[Korali] Gen 15 - Elapsed Time: 0.051440, Fitness Change: 8.22e+01
+[Korali] Gen 16 - Elapsed Time: 0.051024, Fitness Change: 3.34e+02
+[Korali] Gen 17 - Elapsed Time: 0.052125, Fitness Change: 1.25e+02
+[Korali] Gen 18 - Elapsed Time: 0.051534, Fitness Change: 5.46e+01
+[Korali] Gen 19 - Elapsed Time: 0.051592, Fitness Change: 3.75e+03
+[Korali] Gen 20 - Elapsed Time: 0.052093, Fitness Change: 2.93e+03
+[Korali] Gen 21 - Elapsed Time: 0.051359, Fitness Change: 4.57e+02
+[Korali] Gen 22 - Elapsed Time: 0.051912, Fitness Change: 6.35e+01
+[Korali] Gen 23 - Elapsed Time: 0.051582, Fitness Change: 3.48e+01
+[Korali] Gen 24 - Elapsed Time: 0.051520, Fitness Change: 1.53e+01
+[Korali] Gen 25 - Elapsed Time: 0.051870, Fitness Change: 2.00e+01
+[Korali] Gen 26 - Elapsed Time: 0.051570, Fitness Change: 2.43e+01
+[Korali] Gen 27 - Elapsed Time: 0.051764, Fitness Change: 1.35e+01
+[Korali] Gen 28 - Elapsed Time: 0.051569, Fitness Change: 4.37e+00
+[Korali] Gen 29 - Elapsed Time: 0.051831, Fitness Change: 2.77e+00
+[Korali] Gen 30 - Elapsed Time: 0.051922, Fitness Change: 2.88e+00
+[Korali] Gen 31 - Elapsed Time: 0.051450, Fitness Change: 1.23e+00
+[Korali] Gen 32 - Elapsed Time: 0.051944, Fitness Change: 1.43e+00
+[Korali] Gen 33 - Elapsed Time: 0.051505, Fitness Change: 1.27e+00
+[Korali] Gen 34 - Elapsed Time: 0.052090, Fitness Change: 5.61e-01
+[Korali] Gen 35 - Elapsed Time: 0.051840, Fitness Change: 5.66e-01
+[Korali] Gen 36 - Elapsed Time: 0.051497, Fitness Change: 5.66e-01
+[Korali] Gen 37 - Elapsed Time: 0.052614, Fitness Change: 2.16e-01
+[Korali] Gen 38 - Elapsed Time: 0.051865, Fitness Change: 1.21e-01
+[Korali] Gen 39 - Elapsed Time: 0.052061, Fitness Change: 1.19e-01
+[Korali] Gen 40 - Elapsed Time: 0.051554, Fitness Change: 1.19e-01
+[Korali] Gen 41 - Elapsed Time: 0.052174, Fitness Change: 6.17e-02
+[Korali] Gen 42 - Elapsed Time: 0.051383, Fitness Change: 4.65e-02
+[Korali] Gen 43 - Elapsed Time: 0.051381, Fitness Change: 2.54e-02
+[Korali] Gen 44 - Elapsed Time: 0.052053, Fitness Change: 2.54e-02
+[Korali] Gen 45 - Elapsed Time: 0.051637, Fitness Change: 7.36e-03
+[Korali] Gen 46 - Elapsed Time: 0.052390, Fitness Change: 2.95e-03
+[Korali] Gen 47 - Elapsed Time: 0.055924, Fitness Change: 2.39e-03
+[Korali] Gen 48 - Elapsed Time: 0.053245, Fitness Change: 4.32e+00
+[Korali] Gen 49 - Elapsed Time: 0.053806, Fitness Change: 4.32e+00
+[Korali] Gen 50 - Elapsed Time: 0.053080, Fitness Change: 4.32e+00
+[Korali] Gen 51 - Elapsed Time: 0.053487, Fitness Change: 4.32e+00
+[Korali] Gen 52 - Elapsed Time: 0.053073, Fitness Change: 4.32e+00
+[Korali] Gen 53 - Elapsed Time: 0.054827, Fitness Change: 4.32e+00
+[Korali] Gen 54 - Elapsed Time: 0.053163, Fitness Change: 4.32e+00
+[Korali] Gen 55 - Elapsed Time: 0.053316, Fitness Change: 4.32e+00
+[Korali] Gen 56 - Elapsed Time: 0.053957, Fitness Change: 4.32e+00
+[Korali] Gen 57 - Elapsed Time: 0.053511, Fitness Change: 4.32e+00
+[Korali] Gen 58 - Elapsed Time: 0.054058, Fitness Change: 4.32e+00
+[Korali] Gen 59 - Elapsed Time: 0.053704, Fitness Change: 4.32e+00
+[Korali] Gen 60 - Elapsed Time: 0.053805, Fitness Change: 4.32e+00
+[Korali] Gen 61 - Elapsed Time: 0.053186, Fitness Change: 4.32e+00
+[Korali] Gen 62 - Elapsed Time: 0.056155, Fitness Change: 4.32e+00
+[Korali] Gen 63 - Elapsed Time: 0.056378, Fitness Change: 4.32e+00
+[Korali] Gen 64 - Elapsed Time: 0.053443, Fitness Change: 4.32e+00
+[Korali] Gen 65 - Elapsed Time: 0.053593, Fitness Change: 4.32e+00
+[Korali] Gen 66 - Elapsed Time: 0.053171, Fitness Change: 4.32e+00
+[Korali] Gen 67 - Elapsed Time: 0.053591, Fitness Change: 4.32e+00
+[Korali] Gen 68 - Elapsed Time: 0.053501, Fitness Change: 4.32e+00
+[Korali] Gen 69 - Elapsed Time: 0.053054, Fitness Change: 4.32e+00
+[Korali] Gen 70 - Elapsed Time: 0.053587, Fitness Change: 4.32e+00
+[Korali] Gen 71 - Elapsed Time: 0.053261, Fitness Change: 4.32e+00
+[Korali] Gen 72 - Elapsed Time: 0.053839, Fitness Change: 4.32e+00
+[Korali] Gen 73 - Elapsed Time: 0.053141, Fitness Change: 4.32e+00
+[Korali] Gen 74 - Elapsed Time: 0.053879, Fitness Change: 4.32e+00
+[Korali] Gen 75 - Elapsed Time: 0.053404, Fitness Change: 4.32e+00
+[Korali] Gen 76 - Elapsed Time: 0.053257, Fitness Change: 4.32e+00
+[Korali] Gen 77 - Elapsed Time: 0.053874, Fitness Change: 4.32e+00
+[Korali] Gen 78 - Elapsed Time: 0.053080, Fitness Change: 4.32e+00
+[Korali] Gen 79 - Elapsed Time: 0.053843, Fitness Change: 4.32e+00
+[Korali] Gen 80 - Elapsed Time: 0.053072, Fitness Change: 4.32e+00
+[Korali] Gen 81 - Elapsed Time: 0.053612, Fitness Change: 4.32e+00
+[Korali] Gen 82 - Elapsed Time: 0.053167, Fitness Change: 4.32e+00
+[Korali] Gen 83 - Elapsed Time: 0.053566, Fitness Change: 4.32e+00
+[Korali] Gen 84 - Elapsed Time: 0.053720, Fitness Change: 4.32e+00
+[Korali] Gen 85 - Elapsed Time: 0.053278, Fitness Change: 4.32e+00
+[Korali] Gen 86 - Elapsed Time: 0.053901, Fitness Change: 4.32e+00
+[Korali] Gen 87 - Elapsed Time: 0.053053, Fitness Change: 4.32e+00
+[Korali] Gen 88 - Elapsed Time: 0.053773, Fitness Change: 4.32e+00
+[Korali] Gen 89 - Elapsed Time: 0.053152, Fitness Change: 4.32e+00
+[Korali] Gen 90 - Elapsed Time: 0.053377, Fitness Change: 4.32e+00
+[Korali] Gen 91 - Elapsed Time: 0.053542, Fitness Change: 4.32e+00
+[Korali] Gen 92 - Elapsed Time: 0.053080, Fitness Change: 4.32e+00
+[Korali] Gen 93 - Elapsed Time: 0.054143, Fitness Change: 4.32e+00
+[Korali] Gen 94 - Elapsed Time: 0.053526, Fitness Change: 4.32e+00
+[Korali] Gen 95 - Elapsed Time: 0.053602, Fitness Change: 4.32e+00
+[Korali] Gen 96 - Elapsed Time: 0.053509, Fitness Change: 4.32e+00
+[Korali] Gen 97 - Elapsed Time: 0.053305, Fitness Change: 4.32e+00
+[Korali] Gen 98 - Elapsed Time: 0.053974, Fitness Change: 4.32e+00
+[Korali] Gen 99 - Elapsed Time: 0.053185, Fitness Change: 4.32e+00
+[Korali] Gen 100 - Elapsed Time: 0.053644, Fitness Change: 4.32e+00
+[Korali] Gen 101 - Elapsed Time: 0.053614, Fitness Change: 4.32e+00
+[Korali] Gen 102 - Elapsed Time: 0.053585, Fitness Change: 4.32e+00
+[Korali] Gen 103 - Elapsed Time: 0.053216, Fitness Change: 4.32e+00
+[Korali] Gen 104 - Elapsed Time: 0.053234, Fitness Change: 4.32e+00
+[Korali] Gen 105 - Elapsed Time: 0.053893, Fitness Change: 4.32e+00
+[Korali] Gen 106 - Elapsed Time: 0.053376, Fitness Change: 4.32e+00
+[Korali] Gen 107 - Elapsed Time: 0.053468, Fitness Change: 4.32e+00
+[Korali] Gen 108 - Elapsed Time: 0.054159, Fitness Change: 4.32e+00
+[Korali] Gen 109 - Elapsed Time: 0.053800, Fitness Change: 4.32e+00
+[Korali] Gen 110 - Elapsed Time: 0.053161, Fitness Change: 4.32e+00
+[Korali] Gen 111 - Elapsed Time: 0.052960, Fitness Change: 4.32e+00
+[Korali] Gen 112 - Elapsed Time: 0.054129, Fitness Change: 4.32e+00
+[Korali] Gen 113 - Elapsed Time: 0.053159, Fitness Change: 4.32e+00
+[Korali] Gen 114 - Elapsed Time: 0.053621, Fitness Change: 4.32e+00
+[Korali] Gen 115 - Elapsed Time: 0.053264, Fitness Change: 4.32e+00
+[Korali] Gen 116 - Elapsed Time: 0.053702, Fitness Change: 4.32e+00
+[Korali] Gen 117 - Elapsed Time: 0.053267, Fitness Change: 4.32e+00
+[Korali] Gen 118 - Elapsed Time: 0.053259, Fitness Change: 4.32e+00
+[Korali] Gen 119 - Elapsed Time: 0.053543, Fitness Change: 4.32e+00
+[Korali] Gen 120 - Elapsed Time: 0.053205, Fitness Change: 4.32e+00
+[Korali] Gen 121 - Elapsed Time: 0.053853, Fitness Change: 4.32e+00
+[Korali] Gen 122 - Elapsed Time: 0.053305, Fitness Change: 4.32e+00
+[Korali] Gen 123 - Elapsed Time: 0.053707, Fitness Change: 4.32e+00
+[Korali] Gen 124 - Elapsed Time: 0.053475, Fitness Change: 4.32e+00
+[Korali] Gen 125 - Elapsed Time: 0.053058, Fitness Change: 4.32e+00
+[Korali] Gen 126 - Elapsed Time: 0.053449, Fitness Change: 4.32e+00
+[Korali] Gen 127 - Elapsed Time: 0.053490, Fitness Change: 4.32e+00
+[Korali] Gen 128 - Elapsed Time: 0.053530, Fitness Change: 4.32e+00
+[Korali] Gen 129 - Elapsed Time: 0.053168, Fitness Change: 4.32e+00
+[Korali] Gen 130 - Elapsed Time: 0.053442, Fitness Change: 4.32e+00
+[Korali] Gen 131 - Elapsed Time: 0.053799, Fitness Change: 4.32e+00
+[Korali] Gen 132 - Elapsed Time: 0.053060, Fitness Change: 4.32e+00
+[Korali] Gen 133 - Elapsed Time: 0.053880, Fitness Change: 4.32e+00
+[Korali] Gen 134 - Elapsed Time: 0.053700, Fitness Change: 4.32e+00
+[Korali] Gen 135 - Elapsed Time: 0.053715, Fitness Change: 4.32e+00
+[Korali] Gen 136 - Elapsed Time: 0.053060, Fitness Change: 4.32e+00
+[Korali] Gen 137 - Elapsed Time: 0.053705, Fitness Change: 4.32e+00
+[Korali] Gen 138 - Elapsed Time: 0.053258, Fitness Change: 4.32e+00
+[Korali] Gen 139 - Elapsed Time: 0.053391, Fitness Change: 4.32e+00
+[Korali] Gen 140 - Elapsed Time: 0.053738, Fitness Change: 4.32e+00
+[Korali] Gen 141 - Elapsed Time: 0.053289, Fitness Change: 4.32e+00
+[Korali] Gen 142 - Elapsed Time: 0.053899, Fitness Change: 4.32e+00
+[Korali] Gen 143 - Elapsed Time: 0.054536, Fitness Change: 4.32e+00
+[Korali] Gen 144 - Elapsed Time: 0.053552, Fitness Change: 4.32e+00
+[Korali] Gen 145 - Elapsed Time: 0.053183, Fitness Change: 4.32e+00
+[Korali] Gen 146 - Elapsed Time: 0.053210, Fitness Change: 4.32e+00
+[Korali] Gen 147 - Elapsed Time: 0.053600, Fitness Change: 4.32e+00
+[Korali] Gen 148 - Elapsed Time: 0.053185, Fitness Change: 4.32e+00
+[Korali] Gen 149 - Elapsed Time: 0.053590, Fitness Change: 4.32e+00
+[Korali] Gen 150 - Elapsed Time: 0.053734, Fitness Change: 4.32e+00
+[Korali] Gen 151 - Elapsed Time: 0.053421, Fitness Change: 4.32e+00
+[Korali] Gen 152 - Elapsed Time: 0.053543, Fitness Change: 4.32e+00
+[Korali] Gen 153 - Elapsed Time: 0.053073, Fitness Change: 4.32e+00
+[Korali] Gen 154 - Elapsed Time: 0.053577, Fitness Change: 4.32e+00
+[Korali] Gen 155 - Elapsed Time: 0.053071, Fitness Change: 4.32e+00
+[Korali] Gen 156 - Elapsed Time: 0.053535, Fitness Change: 4.32e+00
+[Korali] Gen 157 - Elapsed Time: 0.053309, Fitness Change: 4.32e+00
+[Korali] Gen 158 - Elapsed Time: 0.053475, Fitness Change: 4.32e+00
+[Korali] Gen 159 - Elapsed Time: 0.053084, Fitness Change: 4.32e+00
+[Korali] Gen 160 - Elapsed Time: 0.054026, Fitness Change: 4.32e+00
+[Korali] Gen 161 - Elapsed Time: 0.056375, Fitness Change: 4.32e+00
+[Korali] Gen 162 - Elapsed Time: 0.053247, Fitness Change: 4.32e+00
+[Korali] Gen 163 - Elapsed Time: 0.053505, Fitness Change: 4.32e+00
+[Korali] Gen 164 - Elapsed Time: 0.053076, Fitness Change: 4.32e+00
+[Korali] Gen 165 - Elapsed Time: 0.053735, Fitness Change: 4.32e+00
+[Korali] Gen 166 - Elapsed Time: 0.053178, Fitness Change: 4.32e+00
+[Korali] Gen 167 - Elapsed Time: 0.053098, Fitness Change: 4.32e+00
+[Korali] Gen 168 - Elapsed Time: 0.054013, Fitness Change: 4.32e+00
+[Korali] Gen 169 - Elapsed Time: 0.053494, Fitness Change: 4.32e+00
+[Korali] Gen 170 - Elapsed Time: 0.053888, Fitness Change: 4.32e+00
+[Korali] Gen 171 - Elapsed Time: 0.053071, Fitness Change: 4.32e+00
+[Korali] Gen 172 - Elapsed Time: 0.053663, Fitness Change: 4.32e+00
+[Korali] Gen 173 - Elapsed Time: 0.053075, Fitness Change: 4.32e+00
+[Korali] Gen 174 - Elapsed Time: 0.053158, Fitness Change: 4.32e+00
+[Korali] Gen 175 - Elapsed Time: 0.053531, Fitness Change: 4.32e+00
+[Korali] Gen 176 - Elapsed Time: 0.053820, Fitness Change: 4.32e+00
+[Korali] Gen 177 - Elapsed Time: 0.053674, Fitness Change: 4.32e+00
+[Korali] Gen 178 - Elapsed Time: 0.053405, Fitness Change: 4.32e+00
+[Korali] Gen 179 - Elapsed Time: 0.053575, Fitness Change: 4.32e+00
+[Korali] Gen 180 - Elapsed Time: 0.053804, Fitness Change: 4.32e+00
+[Korali] Gen 181 - Elapsed Time: 0.053170, Fitness Change: 4.32e+00
+[Korali] Gen 182 - Elapsed Time: 0.053594, Fitness Change: 4.32e+00
+[Korali] Gen 183 - Elapsed Time: 0.053317, Fitness Change: 4.32e+00
+[Korali] Gen 184 - Elapsed Time: 0.053569, Fitness Change: 4.32e+00
+[Korali] Gen 185 - Elapsed Time: 0.053090, Fitness Change: 4.32e+00
+[Korali] Gen 186 - Elapsed Time: 0.053616, Fitness Change: 4.32e+00
+[Korali] Gen 187 - Elapsed Time: 0.054206, Fitness Change: 4.32e+00
+[Korali] Gen 188 - Elapsed Time: 0.053082, Fitness Change: 4.32e+00
+[Korali] Gen 189 - Elapsed Time: 0.053736, Fitness Change: 4.32e+00
+[Korali] Gen 190 - Elapsed Time: 0.052957, Fitness Change: 4.32e+00
+[Korali] Gen 191 - Elapsed Time: 0.053489, Fitness Change: 4.32e+00
+[Korali] Gen 192 - Elapsed Time: 0.052956, Fitness Change: 4.32e+00
+[Korali] Gen 193 - Elapsed Time: 0.053366, Fitness Change: 4.32e+00
+[Korali] Gen 194 - Elapsed Time: 0.053097, Fitness Change: 4.32e+00
+[Korali] Gen 195 - Elapsed Time: 0.053167, Fitness Change: 4.32e+00
+[Korali] Gen 196 - Elapsed Time: 0.053498, Fitness Change: 4.32e+00
+[Korali] Gen 197 - Elapsed Time: 0.053224, Fitness Change: 4.32e+00
+[Korali] Gen 198 - Elapsed Time: 0.053763, Fitness Change: 4.32e+00
+[Korali] Gen 199 - Elapsed Time: 0.052978, Fitness Change: 4.32e+00
+[Korali] Gen 200 - Elapsed Time: 0.053376, Fitness Change: 4.32e+00
+[Korali] Finished - Reason: Maximum number of Generations reached (200).
+[Korali] Parameter 'Sigma' Value: 3.387286
+[Korali] Parameter 'xpos_1' Value: 0.286142
+[Korali] Parameter 'ypos_1' Value: 0.246722
+[Korali] Parameter 'xpos_2' Value: 0.735140
+[Korali] Parameter 'ypos_2' Value: 0.766703
+[Korali] Total Elapsed Time: 10.623584s
+[Korali] Starting CMAES. Parameters: 7, Seed: 0x5CA0D4A7
+[Korali] Gen 1 - Elapsed Time: 0.057948, Fitness Change: 3.06e+01
+[Korali] Gen 2 - Elapsed Time: 0.057985, Fitness Change: 2.01e+01
+[Korali] Gen 3 - Elapsed Time: 0.058891, Fitness Change: 2.78e+01
+[Korali] Gen 4 - Elapsed Time: 0.059108, Fitness Change: 2.04e+01
+[Korali] Gen 5 - Elapsed Time: 0.059552, Fitness Change: 1.81e+01
+[Korali] Gen 6 - Elapsed Time: 0.059602, Fitness Change: 2.07e+01
+[Korali] Gen 7 - Elapsed Time: 0.059859, Fitness Change: 1.56e+01
+[Korali] Gen 8 - Elapsed Time: 0.059329, Fitness Change: 1.63e+01
+[Korali] Gen 9 - Elapsed Time: 0.060022, Fitness Change: 1.91e+01
+[Korali] Gen 10 - Elapsed Time: 0.059217, Fitness Change: 2.32e+01
+[Korali] Gen 11 - Elapsed Time: 0.059644, Fitness Change: 2.47e+01
+[Korali] Gen 12 - Elapsed Time: 0.059583, Fitness Change: 3.01e+01
+[Korali] Gen 13 - Elapsed Time: 0.059818, Fitness Change: 3.16e+01
+[Korali] Gen 14 - Elapsed Time: 0.059418, Fitness Change: 4.33e+03
+[Korali] Gen 15 - Elapsed Time: 0.059817, Fitness Change: 2.94e+02
+[Korali] Gen 16 - Elapsed Time: 0.059545, Fitness Change: 1.44e+02
+[Korali] Gen 17 - Elapsed Time: 0.059758, Fitness Change: 2.14e+02
+[Korali] Gen 18 - Elapsed Time: 0.059347, Fitness Change: 3.02e+04
+[Korali] Gen 19 - Elapsed Time: 0.060034, Fitness Change: 1.98e+03
+[Korali] Gen 20 - Elapsed Time: 0.059665, Fitness Change: 1.18e+04
+[Korali] Gen 21 - Elapsed Time: 0.059806, Fitness Change: 3.14e+04
+[Korali] Gen 22 - Elapsed Time: 0.060307, Fitness Change: 1.21e+03
+[Korali] Gen 23 - Elapsed Time: 0.059249, Fitness Change: 1.38e+04
+[Korali] Gen 24 - Elapsed Time: 0.060152, Fitness Change: 9.19e+03
+[Korali] Gen 25 - Elapsed Time: 0.059489, Fitness Change: 8.53e+06
+[Korali] Gen 26 - Elapsed Time: 0.059813, Fitness Change: 1.79e+04
+[Korali] Gen 27 - Elapsed Time: 0.059226, Fitness Change: 7.48e+02
+[Korali] Gen 28 - Elapsed Time: 0.061269, Fitness Change: 4.59e+02
+[Korali] Gen 29 - Elapsed Time: 0.059672, Fitness Change: 3.72e+02
+[Korali] Gen 30 - Elapsed Time: 0.059993, Fitness Change: 5.36e+03
+[Korali] Gen 31 - Elapsed Time: 0.059527, Fitness Change: 3.28e+02
+[Korali] Gen 32 - Elapsed Time: 0.060161, Fitness Change: 3.57e+02
+[Korali] Gen 33 - Elapsed Time: 0.059547, Fitness Change: 8.00e+01
+[Korali] Gen 34 - Elapsed Time: 0.059802, Fitness Change: 5.48e+02
+[Korali] Gen 35 - Elapsed Time: 0.059345, Fitness Change: 6.25e+01
+[Korali] Gen 36 - Elapsed Time: 0.059814, Fitness Change: 4.88e+02
+[Korali] Gen 37 - Elapsed Time: 0.059317, Fitness Change: 8.41e+01
+[Korali] Gen 38 - Elapsed Time: 0.059794, Fitness Change: 1.30e+02
+[Korali] Gen 39 - Elapsed Time: 0.059977, Fitness Change: 1.03e+02
+[Korali] Gen 40 - Elapsed Time: 0.059635, Fitness Change: 1.33e+02
+[Korali] Gen 41 - Elapsed Time: 0.059489, Fitness Change: 1.08e+02
+[Korali] Gen 42 - Elapsed Time: 0.059769, Fitness Change: 1.40e+02
+[Korali] Gen 43 - Elapsed Time: 0.059290, Fitness Change: 1.61e+01
+[Korali] Gen 44 - Elapsed Time: 0.059882, Fitness Change: 1.42e+01
+[Korali] Gen 45 - Elapsed Time: 0.059740, Fitness Change: 9.46e+00
+[Korali] Gen 46 - Elapsed Time: 0.059497, Fitness Change: 2.97e+01
+[Korali] Gen 47 - Elapsed Time: 0.059594, Fitness Change: 1.88e+01
+[Korali] Gen 48 - Elapsed Time: 0.059665, Fitness Change: 1.38e+01
+[Korali] Gen 49 - Elapsed Time: 0.060033, Fitness Change: 3.49e+00
+[Korali] Gen 50 - Elapsed Time: 0.059284, Fitness Change: 5.76e+00
+[Korali] Gen 51 - Elapsed Time: 0.059816, Fitness Change: 2.77e+00
+[Korali] Gen 52 - Elapsed Time: 0.059399, Fitness Change: 2.68e+00
+[Korali] Gen 53 - Elapsed Time: 0.059502, Fitness Change: 3.13e+00
+[Korali] Gen 54 - Elapsed Time: 0.059214, Fitness Change: 5.26e+00
+[Korali] Gen 55 - Elapsed Time: 0.059498, Fitness Change: 1.78e+00
+[Korali] Gen 56 - Elapsed Time: 0.060041, Fitness Change: 1.62e+00
+[Korali] Gen 57 - Elapsed Time: 0.059872, Fitness Change: 1.88e+00
+[Korali] Gen 58 - Elapsed Time: 0.059216, Fitness Change: 1.25e+00
+[Korali] Gen 59 - Elapsed Time: 0.059712, Fitness Change: 1.58e+00
+[Korali] Gen 60 - Elapsed Time: 0.059382, Fitness Change: 1.09e+00
+[Korali] Gen 61 - Elapsed Time: 0.059487, Fitness Change: 7.82e-01
+[Korali] Gen 62 - Elapsed Time: 0.059231, Fitness Change: 1.20e+00
+[Korali] Gen 63 - Elapsed Time: 0.059624, Fitness Change: 1.16e+00
+[Korali] Gen 64 - Elapsed Time: 0.059225, Fitness Change: 1.37e+00
+[Korali] Gen 65 - Elapsed Time: 0.059795, Fitness Change: 1.06e+00
+[Korali] Gen 66 - Elapsed Time: 0.059737, Fitness Change: 8.98e-01
+[Korali] Gen 67 - Elapsed Time: 0.059377, Fitness Change: 1.44e+00
+[Korali] Gen 68 - Elapsed Time: 0.059479, Fitness Change: 1.16e+00
+[Korali] Gen 69 - Elapsed Time: 0.059468, Fitness Change: 1.16e+00
+[Korali] Gen 70 - Elapsed Time: 0.059600, Fitness Change: 1.79e+00
+[Korali] Gen 71 - Elapsed Time: 0.059343, Fitness Change: 6.44e-01
+[Korali] Gen 72 - Elapsed Time: 0.060085, Fitness Change: 7.72e-01
+[Korali] Gen 73 - Elapsed Time: 0.060071, Fitness Change: 4.91e-01
+[Korali] Gen 74 - Elapsed Time: 0.061390, Fitness Change: 6.61e-01
+[Korali] Gen 75 - Elapsed Time: 0.059497, Fitness Change: 3.21e-01
+[Korali] Gen 76 - Elapsed Time: 0.060041, Fitness Change: 2.80e-01
+[Korali] Gen 77 - Elapsed Time: 0.059446, Fitness Change: 1.22e-01
+[Korali] Gen 78 - Elapsed Time: 0.059902, Fitness Change: 1.26e-01
+[Korali] Gen 79 - Elapsed Time: 0.059550, Fitness Change: 6.96e-02
+[Korali] Gen 80 - Elapsed Time: 0.059757, Fitness Change: 6.98e-02
+[Korali] Gen 81 - Elapsed Time: 0.059380, Fitness Change: 7.05e-02
+[Korali] Gen 82 - Elapsed Time: 0.059862, Fitness Change: 4.15e-02
+[Korali] Gen 83 - Elapsed Time: 0.059627, Fitness Change: 2.77e-02
+[Korali] Gen 84 - Elapsed Time: 0.061213, Fitness Change: 2.49e-02
+[Korali] Gen 85 - Elapsed Time: 0.059342, Fitness Change: 1.78e-02
+[Korali] Gen 86 - Elapsed Time: 0.059904, Fitness Change: 1.57e-02
+[Korali] Gen 87 - Elapsed Time: 0.059335, Fitness Change: 8.25e-03
+[Korali] Gen 88 - Elapsed Time: 0.061749, Fitness Change: 6.61e-03
+[Korali] Gen 89 - Elapsed Time: 0.059528, Fitness Change: 2.70e-03
+[Korali] Gen 90 - Elapsed Time: 0.060107, Fitness Change: 1.70e-03
+[Korali] Gen 91 - Elapsed Time: 0.059675, Fitness Change: 1.45e-03
+[Korali] Gen 92 - Elapsed Time: 0.059394, Fitness Change: 7.81e-04
+[Korali] Gen 93 - Elapsed Time: 0.059752, Fitness Change: 6.33e-04
+[Korali] Gen 94 - Elapsed Time: 0.059420, Fitness Change: 3.82e-04
+[Korali] Gen 95 - Elapsed Time: 0.059553, Fitness Change: 3.63e-04
+[Korali] Gen 96 - Elapsed Time: 0.059604, Fitness Change: 1.45e-04
+[Korali] Gen 97 - Elapsed Time: 0.059396, Fitness Change: 1.19e-04
+[Korali] Gen 98 - Elapsed Time: 0.059190, Fitness Change: 7.47e-05
+[Korali] Gen 99 - Elapsed Time: 0.061656, Fitness Change: 3.68e-05
+[Korali] Gen 100 - Elapsed Time: 0.060129, Fitness Change: 2.79e-05
+[Korali] Gen 101 - Elapsed Time: 0.059631, Fitness Change: 1.62e-05
+[Korali] Gen 102 - Elapsed Time: 0.059323, Fitness Change: 1.36e-05
+[Korali] Gen 103 - Elapsed Time: 0.060020, Fitness Change: 5.86e-06
+[Korali] Gen 104 - Elapsed Time: 0.059395, Fitness Change: 3.10e-06
+[Korali] Gen 105 - Elapsed Time: 0.059814, Fitness Change: 1.07e-06
+[Korali] Gen 106 - Elapsed Time: 0.059755, Fitness Change: 9.75e-07
+[Korali] Gen 107 - Elapsed Time: 0.060199, Fitness Change: 9.76e-07
+[Korali] Gen 108 - Elapsed Time: 0.059333, Fitness Change: 2.85e-07
+[Korali] Gen 109 - Elapsed Time: 0.059840, Fitness Change: 2.87e-07
+[Korali] Gen 110 - Elapsed Time: 0.059172, Fitness Change: 7.59e-08
+[Korali] Gen 111 - Elapsed Time: 0.059561, Fitness Change: 6.88e-08
+[Korali] Gen 112 - Elapsed Time: 0.059380, Fitness Change: 4.47e-08
+[Korali] Gen 113 - Elapsed Time: 0.059629, Fitness Change: 2.27e-08
+[Korali] Gen 114 - Elapsed Time: 0.059510, Fitness Change: 2.28e-08
+[Korali] Gen 115 - Elapsed Time: 0.059262, Fitness Change: 7.49e-09
+[Korali] Gen 116 - Elapsed Time: 0.059868, Fitness Change: 6.16e-09
+[Korali] Gen 117 - Elapsed Time: 0.059459, Fitness Change: 4.52e-09
+[Korali] Gen 118 - Elapsed Time: 0.059739, Fitness Change: 3.07e-09
+[Korali] Gen 119 - Elapsed Time: 0.059669, Fitness Change: 2.38e-09
+[Korali] Gen 120 - Elapsed Time: 0.059650, Fitness Change: 1.24e-09
+[Korali] Gen 121 - Elapsed Time: 0.059159, Fitness Change: 8.49e-10
+[Korali] Gen 122 - Elapsed Time: 0.059612, Fitness Change: 5.17e-10
+[Korali] Gen 123 - Elapsed Time: 0.060504, Fitness Change: 3.21e-10
+[Korali] Gen 124 - Elapsed Time: 0.060045, Fitness Change: 2.39e-10
+[Korali] Gen 125 - Elapsed Time: 0.058921, Fitness Change: 7.39e-11
+[Korali] Gen 126 - Elapsed Time: 0.059574, Fitness Change: 4.25e-11
+[Korali] Gen 127 - Elapsed Time: 0.059012, Fitness Change: 2.87e-11
+[Korali] Gen 128 - Elapsed Time: 0.059421, Fitness Change: 2.24e-11
+[Korali] Gen 129 - Elapsed Time: 0.059203, Fitness Change: 1.84e-11
+[Korali] Gen 130 - Elapsed Time: 0.059482, Fitness Change: 7.02e-12
+[Korali] Gen 131 - Elapsed Time: 0.059186, Fitness Change: 5.53e-12
+[Korali] Gen 132 - Elapsed Time: 0.059660, Fitness Change: 2.29e-12
+[Korali] Gen 133 - Elapsed Time: 0.059502, Fitness Change: 2.06e-12
+[Korali] Gen 134 - Elapsed Time: 0.059573, Fitness Change: 1.32e-12
+[Korali] Gen 135 - Elapsed Time: 0.059398, Fitness Change: 3.98e-13
+[Korali] Finished - Reason: Function value differences (3.98e-13) < (1.00e-12)
+[Korali] Parameter 'Sigma' Value: 1.187578
+[Korali] Parameter 'xpos_1' Value: 0.284123
+[Korali] Parameter 'ypos_1' Value: 0.225208
+[Korali] Parameter 'xpos_2' Value: 0.702163
+[Korali] Parameter 'ypos_2' Value: 0.704550
+[Korali] Parameter 'xpos_3' Value: 0.800293
+[Korali] Parameter 'ypos_3' Value: 0.789581
+[Korali] Total Elapsed Time: 8.052787s

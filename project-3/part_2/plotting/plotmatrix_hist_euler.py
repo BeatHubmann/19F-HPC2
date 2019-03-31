@@ -109,7 +109,6 @@ if __name__ == '__main__':
     parser.add_argument("-lik", "--likelihood", action="store_true",
                         help="Plot log-likelihood value")
     args = parser.parse_args()
-    ##  usage examples:
     #  python plotmatrix_hist_euler.py filename --likelihood -> plot all variables + likelihood
     #  python plotmatrix_hist_euler.py --start_col 0 --end_col 0 filename  -> plot only first variable 
     plot_theta(args.filename, args.start_col, args.end_col, args.likelihood)
