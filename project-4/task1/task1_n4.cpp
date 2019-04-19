@@ -19,23 +19,66 @@ int main(int argc, char* argv[])
 		fscanf(dataFile, "%le ", &p.refTemp[i]);
 	}
 
-	auto problem = Korali::Problem::Posterior(heat2DSolver);
+	auto problem= Korali::Problem::Posterior(heat2DSolver);
 	// 4-Candle Model x4 parameters/candle 
-	p.nCandles = 4;
+	p.nCandles= 4;
         
 	/*
 	TODO : fill in all parameter information required 
 	*/
 
+	Korali::Parameter::Uniform xpos_1("xpos_1", 0.0, 0.5);
+	Korali::Parameter::Uniform ypos_1("ypos_1", 0.0, 1.0);
 
-  	auto solver = Korali::Solver::CMAES(&problem);
-
-    int Ng = 2000; // max generations for CMAES
+	Korali::Parameter::Uniform xpos_2("xpos_2", 0.0, 0.5);
+	Korali::Parameter::Uniform ypos_2("ypos_2", 0.0, 1.0);
 	
-    solver.setStopMinDeltaX(1e-6);
-	solver.setPopulationSize(8); // ~4+3*log(N)
+	Korali::Parameter::Uniform xpos_3("xpos_3", 0.5, 1.0);
+	Korali::Parameter::Uniform ypos_3("ypos_3", 0.0, 1.0);
+
+	Korali::Parameter::Uniform xpos_4("xpos_4", 0.5, 1.0);
+	Korali::Parameter::Uniform ypos_4("ypos_4", 0.0, 1.0);
+
+	Korali::Parameter::Uniform beamWidth_1("beamWidth_1", 0.04, 0.06);
+	Korali::Parameter::Uniform beamWidth_2("beamWidth_2", 0.04, 0.06);
+	Korali::Parameter::Uniform beamWidth_3("beamWidth_3", 0.04, 0.06);
+	Korali::Parameter::Uniform beamWidth_4("beamWidth_4", 0.04, 0.06);
+
+	Korali::Parameter::Uniform beamIntensity_1("beamIntensity_1", 0.4, 0.6);
+	Korali::Parameter::Uniform beamIntensity_2("beamIntensity_2", 0.4, 0.6);
+	Korali::Parameter::Uniform beamIntensity_3("beamIntensity_3", 0.4, 0.6);
+	Korali::Parameter::Uniform beamIntensity_4("beamIntensity_4", 0.4, 0.6);
+  
+	problem.addParameter(&xpos_1);
+  problem.addParameter(&ypos_1);
+	problem.addParameter(&beamIntensity_1);
+	problem.addParameter(&beamWidth_1);
+
+	problem.addParameter(&xpos_2);
+	problem.addParameter(&ypos_2);
+	problem.addParameter(&beamIntensity_2);
+	problem.addParameter(&beamWidth_2);
+	
+	problem.addParameter(&xpos_3);
+  problem.addParameter(&ypos_3);
+	problem.addParameter(&beamIntensity_3);
+	problem.addParameter(&beamWidth_3);
+ 
+  problem.addParameter(&ypos_4);
+  problem.addParameter(&ypos_4);
+	problem.addParameter(&beamIntensity_4);
+	problem.addParameter(&beamWidth_4);
+	
+	problem.setReferenceData(p.nPoints, p.refTemp);
+
+	auto solver= Korali::Solver::CMAES(&problem);
+
+  const int maxGens= 2000; // max generations for CMAES
+	const int popSize= 16; // ~4+3*log(N)
+	solver.setStopMinDeltaX(1e-6);
 	solver.setMu(4);
-	solver.setMaxGenerations(Ng);
+	solver.setPopulationSize(popSize);
+	solver.setMaxGenerations(maxGens);
 	solver.run();
 
 	return 0;
