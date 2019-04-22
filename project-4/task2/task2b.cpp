@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 				Consumer consumer= consumers.front();
 				consumers.pop();
 				consumers.push(consumer);
-				upcxx::progress(); // allow draining consumers' RPC inbox
+				upcxx::progress(); // allow draining & processing consumers' RPC inbox
 			}
 			// now consumer with ready result at front of queue:
 			auto split_time= std::chrono::system_clock::now(); // take time to update consumer's stats

@@ -23,10 +23,6 @@ int main(int argc, char* argv[])
 	// 4-Candle Model x4 parameters/candle 
 	p.nCandles= 4;
         
-	/*
-	TODO : fill in all parameter information required 
-	*/
-
 	Korali::Parameter::Uniform xpos_1("xpos_1", 0.0, 0.5);
 	Korali::Parameter::Uniform ypos_1("ypos_1", 0.0, 1.0);
 
@@ -50,7 +46,7 @@ int main(int argc, char* argv[])
 	Korali::Parameter::Uniform beamIntensity_4("beamIntensity_4", 0.4, 0.6);
   
 	problem.addParameter(&xpos_1);
-  problem.addParameter(&ypos_1);
+    problem.addParameter(&ypos_1);
 	problem.addParameter(&beamIntensity_1);
 	problem.addParameter(&beamWidth_1);
 
@@ -60,12 +56,12 @@ int main(int argc, char* argv[])
 	problem.addParameter(&beamWidth_2);
 	
 	problem.addParameter(&xpos_3);
-  problem.addParameter(&ypos_3);
+    problem.addParameter(&ypos_3);
 	problem.addParameter(&beamIntensity_3);
 	problem.addParameter(&beamWidth_3);
  
-  problem.addParameter(&ypos_4);
-  problem.addParameter(&ypos_4);
+    problem.addParameter(&ypos_4);
+    problem.addParameter(&ypos_4);
 	problem.addParameter(&beamIntensity_4);
 	problem.addParameter(&beamWidth_4);
 	
@@ -73,7 +69,7 @@ int main(int argc, char* argv[])
 
 	auto solver= Korali::Solver::CMAES(&problem);
 
-  const int maxGens= 2000; // max generations for CMAES
+    const int maxGens= 2000; // max generations for CMAES
 	const int popSize= 16; // ~4+3*log(N)
 	solver.setStopMinDeltaX(1e-6);
 	solver.setMu(4);
