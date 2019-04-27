@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
 			} 
 		}
 		checkResults(results); // well
-		auto avg_time= total_time / upcxx::rank_n(); // calculate average rank time
+		auto avg_time= total_time / (upcxx::rank_n()-1); // calculate average rank time
 		printf("Total time:\t%.3fs\nAverage time:\t%.3fs\nMaximum time:\t%.3fs", total_time, avg_time, max_time);
 		printf("\nMaximum time/avg time = %.3f\n", max_time / avg_time);
 		printf("Load imbalance ratio = %.3f\n", (max_time - avg_time) / max_time);
