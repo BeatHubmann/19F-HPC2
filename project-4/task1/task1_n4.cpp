@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 	auto solver= Korali::Solver::CMAES(&problem);
 
     const int maxGens= 2000; // max generations for CMAES
-	const int popSize= 16; // ~4+3*log(N)
+	const int popSize= 23; // instead of ~4+3*log(N) to make use of parallelism
 	solver.setStopMinDeltaX(1e-6);
 	solver.setMu(4);
 	solver.setPopulationSize(popSize);
