@@ -37,10 +37,10 @@ __global__ void OptForceKernel(double* xPos, double* yPos, double* zPos,
                                size_t N)
 {
     const double EPS= 1e-9; // use to avoid slingshots and division by zero
+    size_t laneId= threadIdx.x & 0x1f; // Id within warp
     size_t threadId= blockIdx.x * blockDim.x + threadIdx.x;
     if (threadId < N)
     {
-        size_t laneId= threadIdx.x & 0x1f; // Id within warp
         double xFor_tmp= 0.0; // to accumulate interaction loop results
         double yFor_tmp= 0.0;
         double zFor_tmp= 0.0;
@@ -50,7 +50,7 @@ __global__ void OptForceKernel(double* xPos, double* yPos, double* zPos,
         double zPosRef_reg= zPos[threadId];
         double massRef_reg= mass[threadId];
 
-        for (size_t i= 0; i < N; i+= 32) // warp-tiled interaction with all bodies
+        for (size_t i= 0; i < N; i+= 32) // tiled interaction with all bodies
         {
             double x= xPos[i + laneId]; // load interaction object
             double y= yPos[i + laneId];
@@ -66,21 +66,24 @@ __global__ void OptForceKernel(double* xPos, double* yPos, double* zPos,
 
                 double distanceSquared= deltaX * deltaX
                                       + deltaY * deltaY
-                                      + deltaZ * deltaZ
-                                      + EPS; // avoid slingshots, division by zero
+                                      + deltaZ * deltaZ;
                 
-                double invDistance= rsqrt(distanceSquared); // use built-in arithmetic
+                double invDistance= rsqrt(distanceSquared + EPS); // use built-in arithmetic
                 double invDistanceCubed= invDistance * invDistance * invDistance;
                 
                 double scalarForce= massRef_reg 
                                   * __shfl_sync(0xFFFFFFFF, m, j) // mass
                                   * invDistanceCubed;
                 
+                // double scalarForce= massRef_reg
+                //                   * __shfl_sync(0xFFFFFFFF, m, j)
+                //                   * (1 / distanceSquared)
+                //                   * rsqrt(distanceSquared);
+
                 xFor_tmp+= scalarForce * deltaX; // add up xForce vector component
                 yFor_tmp+= scalarForce * deltaY; // add up yForce vector component 
                 zFor_tmp+= scalarForce * deltaZ; // add up zForce vector component
             }
-            __syncthreads();
         }
         xFor[threadId]= xFor_tmp; // write results back
         yFor[threadId]= yFor_tmp;
@@ -138,15 +141,14 @@ int main(int argc, char* argv[])
     cudaMemcpy(d_mass, mass, sizeof(double) * N, cudaMemcpyHostToDevice); checkCUDAError("Failed Initial Conditions Memcpy");
 
     // Calculating Kernel Geometry
-    size_t threadsPerBlock  = 512;
+    size_t threadsPerBlock  = 1024;
     size_t blocksPerGrid    = ceil(double (((double)N) / ((double)threadsPerBlock)));
 
     // Running Force-calculation kernel
     auto startTime = std::chrono::system_clock::now();
     OptForceKernel<<<blocksPerGrid, threadsPerBlock>>>(d_xPos, d_yPos, d_zPos,
                                                        d_mass,
-                                                       d_xFor, d_yFor, d_zFor,
-                                                       N);
+                                                       d_xFor, d_yFor, d_zFor, N);
     checkCUDAError("Failed Force Kernel");
     cudaDeviceSynchronize();
     auto endTime = std::chrono::system_clock::now();

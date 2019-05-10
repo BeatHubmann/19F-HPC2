@@ -145,8 +145,7 @@ int main(int argc, char* argv[])
     auto startTime = std::chrono::system_clock::now();
     OptForceKernel<<<blocksPerGrid, threadsPerBlock>>>(d_xPos, d_yPos, d_zPos,
                                                        d_mass,
-                                                       d_xFor, d_yFor, d_zFor,
-                                                       N);
+                                                       d_xFor, d_yFor, d_zFor, N);
     checkCUDAError("Failed Force Kernel");
     cudaDeviceSynchronize();
     auto endTime = std::chrono::system_clock::now();
