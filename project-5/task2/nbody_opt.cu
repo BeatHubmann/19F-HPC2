@@ -65,9 +65,9 @@ __global__ void OptForceKernel(double* xPos, double* yPos, double* zPos,
                 double deltaZ= zPosRef_reg - __shfl_sync(0xFFFFFFFF, z, j);
 
                 double distanceSquared= deltaX * deltaX
-                                      + deltaY * deltaY
-                                      + deltaZ * deltaZ
-                                      + EPS; // avoid slingshots, division by zero
+                                      +(deltaY * deltaY
+                                      +(deltaZ * deltaZ
+                                      + EPS));
                 
                 double invDistance= rsqrt(distanceSquared); // use built-in arithmetic
                 double invDistanceCubed= invDistance * invDistance * invDistance;
