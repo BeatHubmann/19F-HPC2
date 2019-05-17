@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <vector>
+#include <mpi.h>
 
 typedef struct pointsInfoStruct {
   std::vector<double> xPos;
@@ -14,12 +15,28 @@ typedef struct pointsInfoStruct {
 } pointsInfo;
 
 typedef struct gridLevelStruct {
- size_t N; // Number of points per dimension in the grid level
+ size_t N; // Number of points per dimension on grid level
+ size_t NN; // Number of points on grid level 
+ size_t n_x; // Number of points in x dimension on local grid level
+ size_t n_y; // Number of points in y dimension on local grid level
+ size_t nn; // Number of points on local grid level
+ MPI_Datatype N_bound;
+ MPI_Datatype E_bound;
+ MPI_Datatype S_bound;
+ MPI_Datatype W_bound;
  double h; // DeltaX = DeltaY, the distance between points in the discretized [0,1]x[0,1] domain
- double** f; // Right hand side (external heat sources)
- double** U; // Main grid
- double** Un; // Previous Jacobi grid
- double** Res; // Residual Grid
+ double x_min; // local grid boundary positions, check if really needed
+ double x_max;
+ double y_min;
+ double y_max;
+ double* f; // Right hand side (external heat sources)
+ double* U; // Main grid
+ double* Un; // Previous Jacobi grid
+ double* Res; // Residual Grid
+//  double** f; // Right hand side (external heat sources)
+//  double** U; // Main grid
+//  double** Un; // Previous Jacobi grid
+//  double** Res; // Residual Grid
  double L2Norm; // L2 Norm of the residual
  double L2NormPrev; // Previous L2 Norm
  double L2NormDiff; // L2Norm Difference compared to previous step
