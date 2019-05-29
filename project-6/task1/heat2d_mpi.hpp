@@ -15,11 +15,13 @@ typedef struct pointsInfoStruct {
 } pointsInfo;
 
 typedef struct gridLevelStruct {
- size_t N; // Number of points per dimension on grid level
- size_t NN; // Number of points on grid level 
- size_t n_x; // Number of points in x dimension on local grid level
- size_t n_y; // Number of points in y dimension on local grid level
- size_t nn; // Number of points on local grid level
+ int N; // Number of points per dimension on grid level
+ int NN; // Number of points on grid level 
+ int n_x; // Number of points in x dimension on local grid level
+ int n_x_limit; // Number of points used locally to cover original grid
+ int n_y; // Number of points in y dimension on local grid level
+ int n_y_limit; // Number of points used locally to cover original grid
+ int nn; // Number of points on local grid level
  MPI_Datatype N_bound;
  MPI_Datatype E_bound;
  MPI_Datatype S_bound;
@@ -29,6 +31,7 @@ typedef struct gridLevelStruct {
  double x_max;
  double y_min;
  double y_max;
+
  double* f; // Right hand side (external heat sources)
  double* U; // Main grid
  double* Un; // Previous Jacobi grid
@@ -37,6 +40,8 @@ typedef struct gridLevelStruct {
 //  double** U; // Main grid
 //  double** Un; // Previous Jacobi grid
 //  double** Res; // Residual Grid
+
+ double L2NormLocal; // saving local L2 norm for debugging 
  double L2Norm; // L2 Norm of the residual
  double L2NormPrev; // Previous L2 Norm
  double L2NormDiff; // L2Norm Difference compared to previous step

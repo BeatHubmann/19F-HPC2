@@ -15,9 +15,10 @@
 #include <mpi.h>
 #include <cassert>
 #include <utility>
+#include <algorithm>
 
 #define GRIDCOUNT (1)
-#define NPOINTSPOWER (3)
+#define NPOINTSPOWER (2)
 
 pointsInfo __p;
 
@@ -42,7 +43,6 @@ struct WorldStruct
 
 } world;
 
-// MPI_Datatype N_bound, E_bound, S_bound, W_bound;
 
 int main(int argc, char *argv[])
 {
@@ -50,10 +50,10 @@ int main(int argc, char *argv[])
     MPI_Comm_rank(MPI_COMM_WORLD, &world.my_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &world.num_procs);
 
-    int dims[2] = {0, 0};
+    int dims[2]= {0, 0};
     MPI_Dims_create(world.num_procs, 2, dims);
-    world.dims_x = dims[0];
-    world.dims_y = dims[1];
+    world.dims_x= dims[0];
+    world.dims_y= dims[1];
 
     int periods[2] = {false, false};
     MPI_Cart_create(MPI_COMM_WORLD, 2, dims, periods, true, &world.cart_comm);
@@ -61,14 +61,14 @@ int main(int argc, char *argv[])
     MPI_Cart_shift(world.cart_comm, 0, 1, &world.W_proc, &world.E_proc);
     MPI_Cart_shift(world.cart_comm, 1, 1, &world.S_proc, &world.N_proc);
 
-    int coords[2] = {0, 0};
+    int coords[2]= {0, 0};
     MPI_Cart_coords(world.cart_comm, world.cart_rank, 2, coords);
-    world.coord_x = coords[0];
-    world.coord_y = coords[1];
+    world.coord_x= coords[0];
+    world.coord_y= coords[1];
 
-    // if (!world.my_rank)
+    if (!world.my_rank)
     {
-        printf("MPI num_procs: %i\n", world.num_procs);
+        printf("\nMPI num_procs: %i\n", world.num_procs);
         printf("MPI dims_x: \%i\n", world.dims_x);
         printf("MPI dims_y: \%i\n", world.dims_y);
     }
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 
     gridLevel *g = generateInitialConditions(N0, gridCount);
 
-    printf("proc %d: x=%f...%f, y=%f...%f\n", world.my_rank, g[0].x_min, g[0].x_max, g[0].y_min, g[0].y_max);
+    printf("\nproc %d: x=%f...%f, y=%f...%f\n", world.my_rank, g[0].x_min, g[0].x_max, g[0].y_min, g[0].y_max);
     printf("     \tN: %d\n", world.N_proc);
     printf("W: %d\t**%d**\tE: %d\n", world.W_proc, world.my_rank, world.E_proc);
     printf("     \tS: %d\n", world.S_proc);
@@ -92,11 +92,9 @@ int main(int argc, char *argv[])
 
     auto startTime = std::chrono::system_clock::now();
 
-    g[0].Res[0] = 0.999;
-    calculateL2Norm(g, 0);   // Calculating Residual L2 Norm
     calculateResidual(g, 0); // Calculating Initial Residual
     calculateL2Norm(g, 0);   // Calculating Residual L2 Norm
-    printf("start!\n");
+    printf("I'm %d - start!\n", world.my_rank);
 
     while (g[0].L2NormDiff > tolerance) // Multigrid solver start
     {
@@ -115,12 +113,31 @@ int main(int argc, char *argv[])
             applyProlongation(g, grid);          // Prolonging solution for coarser level up to finer level
             applyJacobi(g, grid, upRelaxations); // Smoothing finer level
         }
-
         calculateL2Norm(g, 0); // Calculating Residual L2 Norm
     }                          // Multigrid solver end
 
     auto endTime = std::chrono::system_clock::now();
     totalTime = std::chrono::duration<double>(endTime - startTime).count();
+   
+    if (!world.my_rank)
+    {
+        MPI_Reduce(MPI_IN_PLACE, smoothingTime, gridCount, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm);
+        MPI_Reduce(MPI_IN_PLACE, residualTime, gridCount, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm);
+        MPI_Reduce(MPI_IN_PLACE, restrictionTime, gridCount, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm);
+        MPI_Reduce(MPI_IN_PLACE, prolongTime, gridCount, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm);
+        MPI_Reduce(MPI_IN_PLACE, L2NormTime, gridCount, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm);
+        // MPI_Reduce(MPI_IN_PLACE, &totalTime, 1, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm);
+    }
+    else
+    {
+        MPI_Reduce(smoothingTime, smoothingTime, gridCount, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm);
+        MPI_Reduce(residualTime, residualTime, gridCount, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm);
+        MPI_Reduce(restrictionTime, restrictionTime, gridCount, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm);
+        MPI_Reduce(prolongTime, prolongTime, gridCount, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm);
+        MPI_Reduce(L2NormTime, L2NormTime, gridCount, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm);
+        // MPI_Reduce(&totalTime, &totalTime, 1, MPI_DOUBLE, MPI_SUM, 0, world.cart_comm); 
+    }
+
     if (!world.my_rank)
     {
         printTimings(gridCount);
@@ -138,6 +155,15 @@ void applyJacobi(gridLevel *g, size_t l, size_t relaxations)
 
     double h1 = 0.25;
     double h2 = g[l].h * g[l].h;
+
+    const int f_x= g[l].n_x + 2;
+    const int f_y= g[l].n_y + 2;
+    
+    const int x_start= (world.W_proc == MPI_PROC_NULL) ? 2       : 1      ;
+    const int x_end=   (world.E_proc == MPI_PROC_NULL) ? f_x - 2 : f_x - 1;
+    const int y_start= (world.S_proc == MPI_PROC_NULL) ? 2       : 1      ;
+    const int y_end=   (world.N_proc == MPI_PROC_NULL) ? f_y - 2 : f_y - 1;
+
     for (size_t r = 0; r < relaxations; r++)
     {
         // double **tmp = g[l].Un;
@@ -145,19 +171,17 @@ void applyJacobi(gridLevel *g, size_t l, size_t relaxations)
         // g[l].U = tmp;
         std::swap(g[l].U, g[l].Un);
 
-        const int f_x = g[l].n_x + 2;
-        const int f_y = g[l].n_y + 2;
-        for (int i = 1; i < f_y - 1; ++i)
-            for (int j = 1; j < f_x - 1; ++j) // Perform a Jacobi Iteration
+        for (int i= y_start; i < y_end; ++i)
+            for (int j= x_start; j < x_end; ++j) // Perform a Jacobi Iteration
                 g[l].U[i * f_x + j] = (g[l].Un[(i - 1) * f_x + j] + g[l].Un[(i + 1) * f_x + j] + g[l].Un[i * f_x + j - 1] + g[l].Un[i * f_x + j + 1] + g[l].f[i * f_x + j] * h2) * h1;
 
         MPI_Request request[8];
         int request_idx = 0;
 
         MPI_Irecv(&g[l].U[f_x                      ], 1, g[l].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Irecv(&g[l].U[f_x + g[l].n_x  + 1      ], 1, g[l].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
+        MPI_Irecv(&g[l].U[f_x + f_x  - 1           ], 1, g[l].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
         MPI_Irecv(&g[l].U[1                        ], 1, g[l].S_bound, world.S_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Irecv(&g[l].U[f_x * (g[l].n_y + 1) + 1 ], 1, g[l].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
+        MPI_Irecv(&g[l].U[f_x * (f_y - 1) + 1      ], 1, g[l].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
 
         MPI_Isend(&g[l].U[f_x            + 1       ], 1, g[l].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
         MPI_Isend(&g[l].U[f_x            + g[l].n_x], 1, g[l].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
@@ -176,15 +200,22 @@ void calculateResidual(gridLevel *g, size_t l)
     auto t0 = std::chrono::system_clock::now();
 
     const double h2 = 1.0 / pow(g[l].h, 2);
-    const int f_x = g[l].n_x + 2;
-    const int f_y = g[l].n_y + 2;
 
-    for (int i = 1; i < f_y - 1; ++i)
-        for (int j = 1; j < f_x - 1; ++j)
+    const int f_x= g[l].n_x + 2;
+    const int f_y= g[l].n_y + 2;
+    
+    const int x_start= (world.W_proc == MPI_PROC_NULL) ? 2       : 1      ;
+    const int x_end=   (world.E_proc == MPI_PROC_NULL) ? std::min(f_x - 2, g[l].n_x_limit) : f_x - 1;
+    const int y_start= (world.S_proc == MPI_PROC_NULL) ? 2       : 1      ;
+    const int y_end=   (world.N_proc == MPI_PROC_NULL) ? std::min(f_y - 2, g[l].n_y_limit) : f_y - 1;
+
+    for (int i = y_start; i < y_end; ++i)
+        for (int j = x_start; j < x_end; ++j)
         {
             g[l].Res[i * f_x + j] = g[l].f[i * f_x + j] + (g[l].U[(i - 1) * f_x + j] + g[l].U[(i + 1) * f_x + j] - 4 * g[l].U[i * f_x + j] + g[l].U[i * f_x + j - 1] + g[l].U[i * f_x + j + 1]) * h2;
-            // printf("Res [%d, %d] = %f\n",i, j, g[l].Res[i * f_x + j]);
+            // printf("Res [%d, %d] = %f\n",i-1, j-1, g[l].Res[i * f_x + j]);
         }
+    // printf("\n");
     auto t1 = std::chrono::system_clock::now();
     residualTime[l] += std::chrono::duration<double>(t1 - t0).count();
 }
@@ -195,14 +226,22 @@ void calculateL2Norm(gridLevel *g, size_t l)
 
     const int f_x = g[l].n_x + 2;
     const int f_y = g[l].n_y + 2;
+
+    const int x_start= 1      ;
+    // const int x_end=   f_x - 1;
+    const int x_end=  std::min(f_x - 1, g[l].n_x_limit);
+    const int y_start= 1      ;
+    // const int y_end=   f_y - 1;
+    const int y_end=  std::min(f_y - 1, g[l].n_y_limit);
+    
     double tmp = 0.0;
 
-    for (int i = 0; i < f_y; ++i)
-        for (int j = 0; j < f_x; ++j)
+    for (int i = y_start; i < y_end; ++i)
+        for (int j = x_start; j < x_end; ++j)
             g[l].Res[i * f_x + j] = g[l].Res[i * f_x + j] * g[l].Res[i * f_x + j];
 
-    for (int i = 0; i < f_y; ++i)
-        for (int j = 0; j < f_x; ++j)
+    for (int i = y_start; i < y_end; ++i)
+        for (int j = x_start; j < x_end; ++j)
             tmp += g[l].Res[i * f_x + j];
 
     // for (size_t i = 0; i < g[l].N; i++)
@@ -213,11 +252,12 @@ void calculateL2Norm(gridLevel *g, size_t l)
     //     for (size_t j = 0; j < g[l].N; j++)
     //         tmp += g[l].Res[i][j];
 
-    g[l].L2Norm = sqrt(tmp);
-    MPI_Allreduce(&g[l].L2Norm, &g[l].L2Norm, 1, MPI_DOUBLE, MPI_SUM, world.cart_comm);
+    g[l].L2NormLocal= sqrt(tmp);
+    // printf("I'm %d - local L2Norm: %.4f\n", world.my_rank, g[l].L2Norm);
+    MPI_Allreduce(&tmp, &g[l].L2Norm, 1, MPI_DOUBLE, MPI_SUM, world.cart_comm);
+    g[l].L2Norm= sqrt(g[l].L2Norm);
     g[l].L2NormDiff = fabs(g[l].L2NormPrev - g[l].L2Norm);
     g[l].L2NormPrev = g[l].L2Norm;
-    // printf("L2Norm: %.4f\n",  g[0].L2Norm);
 
     auto t1 = std::chrono::system_clock::now();
     L2NormTime[l] += std::chrono::duration<double>(t1 - t0).count();
@@ -231,9 +271,9 @@ void applyRestriction(gridLevel *g, size_t l)
     const int f_y = g[l].n_y + 2;
     const int l_x = g[l - 1].n_x + 2;
 
-    for (int i = 1; i < f_y - 1; ++i)
-        for (int j = 1; j < f_x - 1; ++j)
-            g[l].f[i * f_x + j] = (1.0 * (g[l - 1].Res[(2 * i - 1) * l_x + 2 * j - 1] + g[l - 1].Res[(2 * i - 1) * l_x + 2 * j + 1] + g[l - 1].Res[(2 * i + 1) * l_x + 2 * j - 1] + g[l - 1].Res[(2 * i + 1) * l_x + 2 * j + 1]) + 2.0 * (g[l - 1].Res[(2 * i - 1) * l_x + 2 * j] + g[l - 1].Res[2 * i * l_x + 2 * j - 1] + g[l - 1].Res[(2 * i + 1) * l_x + 2 * j] + g[l - 1].Res[2 * i * l_x + 2 * j + 1]) + 4.0 * (g[l - 1].Res[2 * i * l_x + 2 * j])) * 0.0625;
+    for (int i= 1; i < f_y - 1; ++i)
+        for (int j= 1; j < f_x - 1; ++j)
+            g[l].f[i * f_x + j]= (1.0 * (g[l - 1].Res[(2 * i - 1) * l_x + 2 * j - 1] + g[l - 1].Res[(2 * i - 1) * l_x + 2 * j + 1] + g[l - 1].Res[(2 * i + 1) * l_x + 2 * j - 1] + g[l - 1].Res[(2 * i + 1) * l_x + 2 * j + 1]) + 2.0 * (g[l - 1].Res[(2 * i - 1) * l_x + 2 * j] + g[l - 1].Res[2 * i * l_x + 2 * j - 1] + g[l - 1].Res[(2 * i + 1) * l_x + 2 * j] + g[l - 1].Res[2 * i * l_x + 2 * j + 1]) + 4.0 * (g[l - 1].Res[2 * i * l_x + 2 * j])) * 0.0625;
 
     // for (size_t i = 1; i < g[l].N - 1; i++)
     //     for (size_t j = 1; j < g[l].N - 1; j++)
@@ -336,14 +376,18 @@ gridLevel *generateInitialConditions(size_t N0, size_t gridCount)
     {
         g[i].N = pow(2, N0 - i) + 1;
         g[i].NN = g[i].N * g[i].N;
-        g[i].n_x = g[i].N / world.dims_x;
-        g[i].n_y = g[i].N / world.dims_y;
+        g[i].n_x = ceil((double)g[i].N / (double)world.dims_x); // to make sure we're covering all points
+        g[i].n_y = ceil((double)g[i].N / (double)world.dims_y);
         g[i].nn = g[i].n_x * g[i].n_y;
         g[i].h = 1.0 / (g[i].N - 1);
+        // to limit local grid usage to not exceed original grid points:
+        g[i].n_x_limit = (world.coord_x * g[i].n_x + g[i].n_x > g[i].N) ? g[i].N - world.coord_x * g[i].n_x : g[i].n_x;
+        g[i].n_y_limit = (world.coord_y * g[i].n_y + g[i].n_y > g[i].N) ? g[i].N - world.coord_y * g[i].n_y : g[i].n_y;
+        printf("I'm %d level %zu - n_x_limit: %d n_y_limit: %d\n", world.my_rank, i, g[i].n_x_limit, g[i].n_y_limit);
         g[i].x_min = 0.0 + world.coord_x * g[i].n_x * g[i].h;
-        g[i].x_max = g[i].x_min + (g[i].n_x - 1) * g[i].h;
+        g[i].x_max = g[i].x_min + (g[i].n_x_limit - 1) * g[i].h;
         g[i].y_min = 0.0 + world.coord_y * g[i].n_y * g[i].h;
-        g[i].y_max = g[i].y_min + (g[i].n_y - 1) * g[i].h;
+        g[i].y_max = g[i].y_min + (g[i].n_y_limit - 1) * g[i].h;
 
         MPI_Type_contiguous(g[i].n_x, MPI_DOUBLE, &(g[i].N_bound));
         MPI_Type_commit(&(g[i].N_bound));
@@ -380,30 +424,21 @@ gridLevel *generateInitialConditions(size_t N0, size_t gridCount)
     const int f_x = g[0].n_x + 2;
     const int f_y = g[0].n_y + 2;
 
-    // Initial Guess
-    for (int i = 0; i < f_y; ++i)
-        for (int j = 0; j < f_x; ++j)
-            g[0].U[(i + 1) * f_x + (j + 1)] = 1.0;
-    // for (size_t i = 0; i < g[0].N; i++)
-    //     for (size_t j = 0; j < g[0].N; j++)
-    //         g[0].U[i][j] = 1.0;
+    // Make sure everything including boundary (Dirichlet)/ghost cells is zero
+    // for (int i = 0; i < f_y; ++i)
+    //     for (int j = 0; j < f_x; ++j)
+    //         g[0].U[i * f_x + j]= 0.0;
 
-    // Boundary Conditions
-    if (world.N_proc == MPI_PROC_NULL)
-    {
-        // printf("I'm %d, my N: %d is NULL\n",world.my_rank, world.N_proc);
-        for (int j = 0; j < f_x; ++j)
-            g[0].U[(f_y - 1) * f_x + j] = 0.0;
-    }
-    if (world.E_proc == MPI_PROC_NULL)
-        for (int i = 0; i < f_y; ++i)
-            g[0].U[i * f_x + (f_x - 1)] = 0.0;
-    if (world.S_proc == MPI_PROC_NULL)
-        for (int j = 0; j < f_x; ++j)
-            g[0].U[j] = 0.0;
-    if (world.W_proc == MPI_PROC_NULL)
-        for (int i = 0; i < f_y; ++i)
-            g[0].U[i * f_x] = 0.0;
+    int x_start= (world.W_proc == MPI_PROC_NULL) ? 2       : 0  ;
+    int x_end=   (world.E_proc == MPI_PROC_NULL) ? std::min(f_x - 2, g[0].n_x_limit) : f_x;
+    int y_start= (world.S_proc == MPI_PROC_NULL) ? 2       : 0  ;
+    int y_end=   (world.N_proc == MPI_PROC_NULL) ? std::min(f_y - 2, g[0].n_y_limit) : f_y;
+
+    // Initial guess (= 1.0) wherever not boundary/ghost cells
+    for (int i= y_start; i < y_end; ++i)
+        for (int j = x_start; j < x_end; ++j)
+            g[0].U[i * f_x + j]= 1.0;
+
     // for (size_t i = 0; i < g[0].N; i++)
     //     g[0].U[0][i] = 0.0;
     // for (size_t i = 0; i < g[0].N; i++)
@@ -414,14 +449,21 @@ gridLevel *generateInitialConditions(size_t N0, size_t gridCount)
     //     g[0].U[i][g[0].N - 1] = 0.0;
 
     // F
-    for (int i = 0; i < f_y; ++i)
-        for (int j = 0; j < f_x; ++j)
+    x_start= 1      ;
+    // x_end=   f_x - 1;
+    x_end=  std::min(f_x - 1, g[0].n_x_limit + 1);
+    y_start= 1      ;
+    // y_end=   f_y - 1;
+    y_end=  std::min(f_y - 1, g[0].n_y_limit + 1);
+
+    for (int i = y_start; i < y_end; ++i)
+        for (int j = x_start; j < x_end; ++j)
         {
             double h = g[0].h;
-            double x = g[0].x_min + j * h;
-            double y = g[0].y_min + i * h;
+            double x = g[0].x_min + (j-1) * h;
+            double y = g[0].y_min + (i-1) * h;
 
-            g[0].f[i * f_x + j] = 0.0;
+            // g[0].f[i * f_x + j] = 0.0;
 
             for (size_t c = 0; c < __p.nCandles; ++c)
             {
@@ -431,7 +473,7 @@ gridLevel *generateInitialConditions(size_t N0, size_t gridCount)
                 c1 *= 100000; // intensity
                 double c2 = pars[c * 4 + 3];
                 c2 *= 0.01; // Width
-                g[0].f[i * f_x + j] += c1 * exp(-(pow(c4 - y, 2) + pow(c3 - x, 2)) / c2);
+                g[0].f[i * f_x + j] += c1 * exp(-(pow(c4 - x, 2) + pow(c3 - y, 2)) / c2); // ATTN: swapped axis labelling
             }
         }
     // for (size_t i = 0; i < g[0].N; i++)
@@ -454,6 +496,24 @@ gridLevel *generateInitialConditions(size_t N0, size_t gridCount)
     //             g[0].f[i][j] += c1 * exp(-(pow(c4 - y, 2) + pow(c3 - x, 2)) / c2);
     //         }
     //     }
+
+
+    // Exchange F 
+    MPI_Request request[8];
+    int request_idx = 0;
+
+    MPI_Irecv(&g[0].f[f_x                      ], 1, g[0].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
+    MPI_Irecv(&g[0].f[f_x + f_x  - 1           ], 1, g[0].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
+    MPI_Irecv(&g[0].f[1                        ], 1, g[0].S_bound, world.S_proc, 1, world.cart_comm, &request[request_idx++]);
+    MPI_Irecv(&g[0].f[f_x * (f_y - 1) + 1      ], 1, g[0].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
+
+    MPI_Isend(&g[0].f[f_x            + 1       ], 1, g[0].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
+    MPI_Isend(&g[0].f[f_x            + g[0].n_x], 1, g[0].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
+    MPI_Isend(&g[0].f[f_x            + 1       ], 1, g[0].S_bound, world.S_proc, 1, world.cart_comm, &request[request_idx++]);
+    MPI_Isend(&g[0].f[f_x * g[0].n_y + 1       ], 1, g[0].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
+
+    MPI_Waitall(request_idx, request, MPI_STATUS_IGNORE);
+
     return g;
 }
 
@@ -465,6 +525,12 @@ void freeGrids(gridLevel *g, size_t gridCount)
         free(g[i].Un);
         free(g[i].Res);
         free(g[i].f);
+
+        free(smoothingTime);
+        free(residualTime);
+        free(restrictionTime);
+        free(prolongTime);
+        free(L2NormTime);
 
         MPI_Type_free(&(g[i].N_bound));
         MPI_Type_free(&(g[i].E_bound));

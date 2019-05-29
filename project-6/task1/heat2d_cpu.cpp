@@ -17,7 +17,7 @@ pointsInfo __p;
 int main(int argc, char* argv[])
 {
  double tolerance = 1e-0; // L2 Difference Tolerance before reaching convergence.
- size_t N0 = 3; // 2^N0 + 1 elements per side
+ size_t N0 = 2; // 2^N0 + 1 elements per side
 
  // Multigrid parameters -- Find the best configuration!
  size_t gridCount       = 1;     // Number of Multigrid levels to use
@@ -27,8 +27,6 @@ int main(int argc, char* argv[])
  gridLevel* g = generateInitialConditions(N0, gridCount);
 
  auto startTime = std::chrono::system_clock::now();
-     g[0].Res[0][0]= 0.999; 
-calculateL2Norm(g, 0); // Calculating Residual L2 Norm
 calculateResidual(g, 0);            // Calculating Initial Residual
 calculateL2Norm(g, 0); // Calculating Residual L2 Norm
 printf("start!\n");
@@ -87,10 +85,7 @@ void calculateResidual(gridLevel* g, size_t l)
 
  for (size_t i = 1; i < g[l].N-1; i++)
  for (size_t j = 1; j < g[l].N-1; j++)
- {
  g[l].Res[i][j] = g[l].f[i][j] + (g[l].U[i-1][j] + g[l].U[i+1][j] - 4*g[l].U[i][j] + g[l].U[i][j-1] + g[l].U[i][j+1]) * h2;
- printf("Res [%zu, %zu] = %f\n",i, j, g[l].Res[i][j]);
- }
  auto t1 = std::chrono::system_clock::now();
  residualTime[l] += std::chrono::duration<double>(t1-t0).count();
 }
@@ -112,7 +107,7 @@ void calculateL2Norm(gridLevel* g, size_t l)
  g[l].L2Norm = sqrt(tmp);
  g[l].L2NormDiff = fabs(g[l].L2NormPrev - g[l].L2Norm);
  g[l].L2NormPrev = g[l].L2Norm;
- printf("L2Norm: %.4f\n",  g[0].L2Norm);
+//  printf("L2Norm: %.4f\n",  g[l].L2Norm);
 
  auto t1 = std::chrono::system_clock::now();
  L2NormTime[l] += std::chrono::duration<double>(t1-t0).count();
@@ -194,7 +189,7 @@ gridLevel* generateInitialConditions(size_t N0, size_t gridCount)
  for (size_t i = 0; i < gridCount; i++)
  {
   g[i].N = pow(2, N0-i) + 1;
-  g[i].h = 1.0/(g[i].N-1);
+  g[i].h = 1.0/(g[i].N - 1);
 
   g[i].U   = (double**) malloc(sizeof(double*) * g[i].N); for (size_t j = 0; j < g[i].N ; j++) g[i].U[j]   = (double*) malloc(sizeof(double) * g[i].N);
   g[i].Un  = (double**) malloc(sizeof(double*) * g[i].N); for (size_t j = 0; j < g[i].N ; j++) g[i].Un[j]  = (double*) malloc(sizeof(double) * g[i].N);
