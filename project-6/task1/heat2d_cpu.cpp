@@ -13,14 +13,27 @@
 #include <chrono>
 
 pointsInfo __p;
+void print(gridLevel *g, size_t l, double **matrix)
+{
+    const int f_x = g[l].N;
+    for (int i = 0; i < f_x; ++i)
+    {
+        for (int j = 0; j < f_x; ++j)
+        {
+            printf("%f\t", matrix[i][j]);
+        }
+        printf("\n\n");
+    }
+    printf("\n");
+}
 
 int main(int argc, char* argv[])
 {
  double tolerance = 1e-0; // L2 Difference Tolerance before reaching convergence.
- size_t N0 = 2; // 2^N0 + 1 elements per side
+ size_t N0 = 3; // 2^N0 + 1 elements per side
 
  // Multigrid parameters -- Find the best configuration!
- size_t gridCount       = 1;     // Number of Multigrid levels to use
+ size_t gridCount       = 2;     // Number of Multigrid levels to use
  size_t downRelaxations = 3; // Number of Relaxations before restriction
  size_t upRelaxations   = 3;   // Number of Relaxations after prolongation
 
@@ -28,6 +41,7 @@ int main(int argc, char* argv[])
 
  auto startTime = std::chrono::system_clock::now();
 calculateResidual(g, 0);            // Calculating Initial Residual
+// print(g, 0, g->Res);
 calculateL2Norm(g, 0); // Calculating Residual L2 Norm
 printf("start!\n");
  while (g[0].L2NormDiff > tolerance)  // Multigrid solver start
@@ -38,6 +52,7 @@ printf("start!\n");
   for (size_t grid = 1; grid < gridCount; grid++) // Going down the V-Cycle
   {
    applyRestriction(g, grid); // Restricting the residual to the coarser grid's solution vector (f)
+   print(g,grid, g[grid].f);
    applyJacobi(g, grid, downRelaxations); // Smoothing coarser level
    calculateResidual(g, grid); // Calculating Coarse Grid Residual
   }
@@ -85,7 +100,12 @@ void calculateResidual(gridLevel* g, size_t l)
 
  for (size_t i = 1; i < g[l].N-1; i++)
  for (size_t j = 1; j < g[l].N-1; j++)
+ {
  g[l].Res[i][j] = g[l].f[i][j] + (g[l].U[i-1][j] + g[l].U[i+1][j] - 4*g[l].U[i][j] + g[l].U[i][j-1] + g[l].U[i][j+1]) * h2;
+//  printf("LVL %zu Res [%zu, %zu] = %f\n",l, i-1, j-1, g[l].Res[i][j]);
+
+ }
+//  printf("\n");
  auto t1 = std::chrono::system_clock::now();
  residualTime[l] += std::chrono::duration<double>(t1-t0).count();
 }
@@ -107,7 +127,7 @@ void calculateL2Norm(gridLevel* g, size_t l)
  g[l].L2Norm = sqrt(tmp);
  g[l].L2NormDiff = fabs(g[l].L2NormPrev - g[l].L2Norm);
  g[l].L2NormPrev = g[l].L2Norm;
-//  printf("L2Norm: %.4f\n",  g[l].L2Norm);
+ printf("L2 Norm: %f\n",  g[l].L2Norm);
 
  auto t1 = std::chrono::system_clock::now();
  L2NormTime[l] += std::chrono::duration<double>(t1-t0).count();
@@ -117,12 +137,15 @@ void applyRestriction(gridLevel* g, size_t l)
 {
   auto t0 = std::chrono::system_clock::now();
 
+  // if (l > 0) printf("x: %d...%zu\ty: %d...%zu\n",1 ,g[l].N-1,1,g[l].N-1);
 	for (size_t i = 1; i < g[l].N-1; i++)
   for (size_t j = 1; j < g[l].N-1; j++)
-     g[l].f[i][j] = ( 1.0*( g[l-1].Res[2*i-1][2*j-1] + g[l-1].Res[2*i-1][2*j+1] + g[l-1].Res[2*i+1][2*j-1]   + g[l-1].Res[2*i+1][2*j+1] )   +
-             2.0*( g[l-1].Res[2*i-1][2*j]   + g[l-1].Res[2*i][2*j-1]   + g[l-1].Res[2*i+1][2*j]     + g[l-1].Res[2*i][2*j+1] ) +
-             4.0*( g[l-1].Res[2*i][2*j] ) ) * 0.0625;
-
+  {
+     g[l].f[i][j] = ( 1.0*( g[l-1].Res[2*i-1][2*j-1] + g[l-1].Res[2*i-1][2*j+1] + g[l-1].Res[2*i+1][2*j-1] + g[l-1].Res[2*i+1][2*j+1] ) +
+                      2.0*( g[l-1].Res[2*i-1][2*j  ] + g[l-1].Res[2*i  ][2*j-1] + g[l-1].Res[2*i+1][2*j  ] + g[l-1].Res[2*i  ][2*j+1] ) +
+                      4.0*( g[l-1].Res[2*i  ][2*j  ])) * 0.0625;
+                // printf("f[%zu, %zu] = %f\n",i,j,g[l].f[i][j]);
+  }
  for (size_t i = 0; i < g[l].N; i++)
   for (size_t j = 0; j < g[l].N; j++) // Resetting U vector for the coarser level before smoothing -- Find out if this is really necessary.
   g[l].U[i][j] = 0;
