@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
  MPI_Comm_size(MPI_COMM_WORLD, &rankCount);
  bool isMainRank = myRank == 0;
 
- int N = 512;
+ int N = 768;
  int nIters = 50;
  int nx, ny, nz;
  Neighbor X1, X0, Y0, Y1, Z0, Z1;

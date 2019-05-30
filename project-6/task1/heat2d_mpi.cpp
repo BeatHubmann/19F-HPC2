@@ -17,8 +17,8 @@
 #include <utility>
 #include <algorithm>
 
-#define GRIDCOUNT (2)
-#define NPOINTSPOWER (3)
+#define GRIDCOUNT (1)
+#define NPOINTSPOWER (7)
 
 pointsInfo __p;
 
@@ -43,20 +43,7 @@ struct WorldStruct
     int W_proc;
 } world;
 
-void print(gridLevel *g, size_t l, double *matrix)
-{
-    const int f_x = g[l].n_x + 2;
-    const int f_y = g[l].n_y + 2;
-    for (int i = 0; i < f_y; ++i)
-    {
-        for (int j = 0; j < f_x; ++j)
-        {
-            printf("%f\t", matrix[i * f_x + j]);
-        }
-        printf("\n\n");
-    }
-    printf("\n");
-}
+
 
 int main(int argc, char *argv[])
 {
@@ -299,40 +286,43 @@ void calculateResidual(gridLevel *g, size_t l)
         }
 
     // Exchange residuals: In principle only needed for multiple grids:
-    MPI_Request request[8];
-    int request_idx = 0;
-    // Exchange boundaries in a hopefully coordinated way:
-    // x-direction: W<->E:
-    if (world.coord_x % 2 == 0) // even ranks: send W-recv W-send E-recv E
+    if (GRIDCOUNT > 1)
     {
-        MPI_Isend(&g[l].Res[f_x + 1], 1, g[l].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Irecv(&g[l].Res[f_x], 1, g[l].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Isend(&g[l].Res[f_x + g[l].n_x], 1, g[l].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Irecv(&g[l].Res[f_x + f_x - 1], 1, g[l].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
+        MPI_Request request[8];
+        int request_idx = 0;
+        // Exchange boundaries in a hopefully coordinated way:
+        // x-direction: W<->E:
+        if (world.coord_x % 2 == 0) // even ranks: send W-recv W-send E-recv E
+        {
+            MPI_Isend(&g[l].Res[f_x + 1], 1, g[l].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Irecv(&g[l].Res[f_x], 1, g[l].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Isend(&g[l].Res[f_x + g[l].n_x], 1, g[l].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Irecv(&g[l].Res[f_x + f_x - 1], 1, g[l].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
+        }
+        else // odd ranks:  recv E-send E-recv W-send W
+        {
+            MPI_Irecv(&g[l].Res[f_x + f_x - 1], 1, g[l].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Isend(&g[l].Res[f_x + g[l].n_x], 1, g[l].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Irecv(&g[l].Res[f_x], 1, g[l].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Isend(&g[l].Res[f_x + 1], 1, g[l].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
+        }
+        // y-direction: N<->S:
+        if (world.coord_y % 2 == 0) // even ranks: send N-recv N-send S-recv S
+        {
+            MPI_Isend(&g[l].Res[f_x * g[l].n_y + 1], 1, g[l].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Irecv(&g[l].Res[f_x * (f_y - 1) + 1], 1, g[l].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Isend(&g[l].Res[f_x + 1], 1, g[l].S_bound, world.S_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Irecv(&g[l].Res[1], 1, g[l].S_bound, world.S_proc, 1, world.cart_comm, &request[request_idx++]);
+        }
+        else // odd ranks:  recv S-send S-recv N-send N
+        {
+            MPI_Irecv(&g[l].Res[1], 1, g[l].S_bound, world.S_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Isend(&g[l].Res[f_x + 1], 1, g[l].S_bound, world.S_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Irecv(&g[l].Res[f_x * (f_y - 1) + 1], 1, g[l].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
+            MPI_Isend(&g[l].Res[f_x * g[l].n_y + 1], 1, g[l].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
+        }
+        MPI_Waitall(request_idx, request, MPI_STATUS_IGNORE); // Make sure all exchanges are done
     }
-    else // odd ranks:  recv E-send E-recv W-send W
-    {
-        MPI_Irecv(&g[l].Res[f_x + f_x - 1], 1, g[l].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Isend(&g[l].Res[f_x + g[l].n_x], 1, g[l].E_bound, world.E_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Irecv(&g[l].Res[f_x], 1, g[l].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Isend(&g[l].Res[f_x + 1], 1, g[l].W_bound, world.W_proc, 1, world.cart_comm, &request[request_idx++]);
-    }
-    // y-direction: N<->S:
-    if (world.coord_y % 2 == 0) // even ranks: send N-recv N-send S-recv S
-    {
-        MPI_Isend(&g[l].Res[f_x * g[l].n_y + 1], 1, g[l].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Irecv(&g[l].Res[f_x * (f_y - 1) + 1], 1, g[l].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Isend(&g[l].Res[f_x + 1], 1, g[l].S_bound, world.S_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Irecv(&g[l].Res[1], 1, g[l].S_bound, world.S_proc, 1, world.cart_comm, &request[request_idx++]);
-    }
-    else // odd ranks:  recv S-send S-recv N-send N
-    {
-        MPI_Irecv(&g[l].Res[1], 1, g[l].S_bound, world.S_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Isend(&g[l].Res[f_x + 1], 1, g[l].S_bound, world.S_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Irecv(&g[l].Res[f_x * (f_y - 1) + 1], 1, g[l].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
-        MPI_Isend(&g[l].Res[f_x * g[l].n_y + 1], 1, g[l].N_bound, world.N_proc, 1, world.cart_comm, &request[request_idx++]);
-    }
-    MPI_Waitall(request_idx, request, MPI_STATUS_IGNORE); // Make sure all exchanges are done
 
     auto t1 = std::chrono::system_clock::now();
     residualTime[l] += std::chrono::duration<double>(t1 - t0).count();
@@ -775,4 +765,19 @@ void printTimings(size_t gridCount)
     printf("|---------\n");
     printf("\n");
     printf("Running Time      : %.3fs\n", totalTime);
+}
+
+void print(gridLevel *g, size_t l, double *matrix)
+{
+    const int f_x = g[l].n_x + 2;
+    const int f_y = g[l].n_y + 2;
+    for (int i = 0; i < f_y; ++i)
+    {
+        for (int j = 0; j < f_x; ++j)
+        {
+            printf("%f\t", matrix[i * f_x + j]);
+        }
+        printf("\n\n");
+    }
+    printf("\n");
 }

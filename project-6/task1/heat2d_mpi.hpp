@@ -50,6 +50,7 @@ typedef struct gridLevelStruct {
 // Helper Functions
 gridLevel* generateInitialConditions(size_t N0, size_t gridCount);
 void freeGrids(gridLevel* g, size_t gridCount);
+void print(gridLevel* g, size_t l, double* matrix);
 
 // Solver functions
 void applyJacobi(gridLevel* g, size_t l, size_t relaxations);

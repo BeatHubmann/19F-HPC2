@@ -30,10 +30,10 @@ void print(gridLevel *g, size_t l, double **matrix)
 int main(int argc, char* argv[])
 {
  double tolerance = 1e-0; // L2 Difference Tolerance before reaching convergence.
- size_t N0 = 3; // 2^N0 + 1 elements per side
+ size_t N0 = 7; // 2^N0 + 1 elements per side
 
  // Multigrid parameters -- Find the best configuration!
- size_t gridCount       = 2;     // Number of Multigrid levels to use
+ size_t gridCount       = 1;     // Number of Multigrid levels to use
  size_t downRelaxations = 3; // Number of Relaxations before restriction
  size_t upRelaxations   = 3;   // Number of Relaxations after prolongation
 
