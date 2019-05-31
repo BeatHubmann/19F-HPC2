@@ -46,8 +46,15 @@ The original code was refactored and extended to include the following:
 
 \subsection{Results}
 The CPU code was run as-is for a baseline reference.\
-The MPI code was run for a single rank and then for 1, 2 and 4 full nodes.\
-All outputs are given in appendix A.
+The MPI code was run for a single rank and then for 1, 2 and attempted 4 full nodes.\
+Unfortunately, the production version of the code without any print statements slowing
+down the execution was only submitted on the morning of May 31, 2019 after loss
+of Euler priority privileges. This meant that 4 node jobs could no longer be submitted and also
+that all but one of those jobs were still pending the evening of May 31 after having sat 
+in the queue for 10+ hours.\
+Switching all jobs over to Daint at that point in time was not realistic, but 
+limited functional but non-representative experiments on a smaller grid were conducted on my own machine.\
+All outputs obtained are given in appendix A.
 
 \subsection{Discussion}
 All runs exhibit the same L2Norm as required in the task specification.
@@ -79,8 +86,13 @@ The strong scaling speed-up and efficiency are observed as follows.
 	\item 96 threads: Speed-up xxx, efficiency xxx\%
 \end{itemize}
 
-Finally, looking at the overall efficiency it becomes evident that commmunication costs
-increase and efficiency decreases as we add ranks on multiple nodes as is to be expected. Optimizing communication could
+As explained above, the only experiments that could be completed were on my own machine with a smaller grid, where
+where the Jacobi smoothing and the residual calculation show a linear speedup and almost perfect efficiency with increasing number of ranks,
+while the L2Norm kernel's efficiency decreases as ranks are added due to the collective operation of
+exchanging local L2Norms.
+
+Looking at the overall efficiency it would be expected that commmunication costs
+increase and efficiency decreases as we add ranks on multiple nodes. Optimizing communication could
 help with this to some extent, but ultimately the algorithm as-is suffers from having to 
 perform an \texttt{MPI\_Allreduce} for each rank to decide when to stop iterations.
 
@@ -146,15 +158,15 @@ benefit would likely increase when adding further nodes.
 	
 	CPU:          1 node(s) / 1 thread(s)
 	-----------------------------------------------------------
-	
+	N/A (Job still in Euler queue after 12h approaching deadline on May 31)
 	
 	MPI:          1 node(s) / 1 thread(s)
 	-----------------------------------------------------------
-	
+	N/A (Job still in Euler queue after 12h approaching deadline on May 31)
 	
 	MPI:          1 node(s) / 24 thread(s)
 	-----------------------------------------------------------
-	
+	N/A (Job still in Euler queue after 12h approaching deadline on May 31)
 	
 	MPI:          2 node(s) / 48 thread(s)
 	-----------------------------------------------------------
@@ -179,9 +191,8 @@ benefit would likely increase when adding further nodes.
 	
 	MPI:          4 node(s) / 96 thread(s)
 	-----------------------------------------------------------
+	N/A	(Job no longer accepted on Euler w/ standard user priority on May 31)
 	
-	
-
 
 	\end{lstlisting}
 
