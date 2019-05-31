@@ -18,7 +18,7 @@
 #include <algorithm>
 
 #define GRIDCOUNT (1)
-#define NPOINTSPOWER (7)
+#define NPOINTSPOWER (10)
 
 pointsInfo __p;
 
@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
     {
         printf("\nMPI num_procs: %i\n", world.num_procs);
         printf("MPI dims_x: \%i\n", world.dims_x);
-        printf("MPI dims_y: \%i\n", world.dims_y);
+        printf("MPI dims_y: \%i\n\n", world.dims_y);
     }
 
     double tolerance = 1e-0;  // L2 Difference Tolerance before reaching convergence.
@@ -87,32 +87,13 @@ int main(int argc, char *argv[])
     // Setup all grid levels including MPI partitioning information:
     gridLevel *g = generateInitialConditions(N0, gridCount);
 
-    printf("\nRNK %d: x=%f...%f, y=%f...%f\n", world.my_rank, g[0].x_min, g[0].x_max, g[0].y_min, g[0].y_max);
-    printf("n_x: %d\tn_y: %d\tn_x_limit: %d\tn_y_limit: %d\n", g[0].n_x, g[0].n_y, g[0].n_x_limit, g[0].n_y_limit);
-    printf("     \tN: %d\n", world.N_proc);
-    printf("W: %d\t**%d**\tE: %d\n", world.W_proc, world.my_rank, world.E_proc);
-    printf("     \tS: %d\n", world.S_proc);
+    // printf("\nRNK %d: x=%f...%f, y=%f...%f\n", world.my_rank, g[0].x_min, g[0].x_max, g[0].y_min, g[0].y_max);
+    // printf("n_x: %d\tn_y: %d\tn_x_limit: %d\tn_y_limit: %d\n", g[0].n_x, g[0].n_y, g[0].n_x_limit, g[0].n_y_limit);
+    // printf("     \tN: %d\n", world.N_proc);
+    // printf("W: %d\t**%d**\tE: %d\n", world.W_proc, world.my_rank, world.E_proc);
+    // printf("     \tS: %d\n", world.S_proc);
 
     MPI_Barrier(MPI_COMM_WORLD); // Make sure all ranks are ready
-
-    // print(g, 0, g->U);
-    // print(g, 0, g->f);
-
-    // calculateResidual(g, 0); // Calculating Initial Residual
-    // for (int i = 0; i < world.num_procs; ++i)
-    // {
-    //     if (i == world.my_rank)
-    //     {
-    //         printf("RNK %d STARTING U:\n", world.my_rank);
-    //         print(g, 0, g->U);
-    //         printf("RNK %d STARTING f:\n", world.my_rank);
-    //         print(g, 0, g->f);
-    //         printf("RNK %d STARTING residual:\n", world.my_rank);
-    //         print(g, 0, g->Res);
-    //     }
-    //     MPI_Barrier(world.cart_comm);
-    // }
-    // calculateL2Norm(g, 0);
 
     auto startTime = std::chrono::system_clock::now();
 
@@ -120,27 +101,9 @@ int main(int argc, char *argv[])
     {
         applyJacobi(g, 0, downRelaxations); // Relaxing the finest grid first
         calculateResidual(g, 0);            // Calculating Initial Residual
-        // for (int i= 0; i < world.num_procs; ++i)
-        // {
-        //     if (i == world.my_rank)
-        //     {
-        //         printf("RNK %d Residual:\n", world.my_rank);
-        //         print(g, 0, g->Res);
-        //     }
-        //     MPI_Barrier(world.cart_comm);
-        // }
         for (size_t grid = 1; grid < gridCount; grid++) // Going down the V-Cycle
         {
             applyRestriction(g, grid);             // Restricting the residual to the coarser grid's solution vector (f)
-            for (int i= 0; i < world.num_procs; ++i)
-            {
-                if (i == world.my_rank)
-                {
-                    printf("RNK %d Restriction:\n", world.my_rank);
-                    print(g,grid, g[grid].f);
-                }
-                MPI_Barrier(world.cart_comm);
-            }
             applyJacobi(g, grid, downRelaxations); // Smoothing coarser level
             calculateResidual(g, grid);            // Calculating Coarse Grid Residual
         }
@@ -277,12 +240,10 @@ void calculateResidual(gridLevel *g, size_t l)
     const int y_start = (world.S_proc == MPI_PROC_NULL) ? 2 : 1;
     const int y_end = (world.N_proc == MPI_PROC_NULL) ? std::min(f_y - 2, g[l].n_y_limit) : f_y - 1;
 
-    // printf("RNK %d - i/y: %d...%d\tj/x: %d...%d\n", world.my_rank, y_start, y_end, x_start,y_end);
     for (int i = y_start; i < y_end; ++i)
         for (int j = x_start; j < x_end; ++j)
         {
             g[l].Res[i * f_x + j] = g[l].f[i * f_x + j] + (g[l].U[(i - 1) * f_x + j] + g[l].U[(i + 1) * f_x + j] - 4 * g[l].U[i * f_x + j] + g[l].U[i * f_x + j - 1] + g[l].U[i * f_x + j + 1]) * h2;
-            // printf("RNK %d LVL %zu Res [%d, %d] = %f <- %f\t%f\t%f\t%f\t%f\t%f\n", world.my_rank, l, i , j , g[l].Res[i * f_x + j],g[l].f[i * f_x + j], g[l].U[(i - 1) * f_x + j], g[l].U[(i + 1) * f_x + j], g[l].U[i * f_x + j], g[l].U[i * f_x + j - 1], g[l].U[i * f_x + j + 1]);
         }
 
     // Exchange residuals: In principle only needed for multiple grids:
@@ -363,8 +324,6 @@ void calculateL2Norm(gridLevel *g, size_t l)
     g[l].L2Norm = sqrt(g[l].L2Norm);                                            // ...then take root of sum of squares to get overall main L2Norm
     g[l].L2NormDiff = fabs(g[l].L2NormPrev - g[l].L2Norm);
     g[l].L2NormPrev = g[l].L2Norm;
-    if (!world.my_rank)
-        printf("L2 Norm: %f\n", g[l].L2Norm);
     auto t1 = std::chrono::system_clock::now();
     L2NormTime[l] += std::chrono::duration<double>(t1 - t0).count();
 }
@@ -382,13 +341,10 @@ void applyRestriction(gridLevel *g, size_t l)
     int y_start = (world.S_proc == MPI_PROC_NULL) ? 2 : 1;
     int y_end = (world.N_proc == MPI_PROC_NULL) ? std::min(f_y - 2, g[l].n_y_limit) : f_y - 1;
 
-    // if (l > 0) printf("x: %d...%d\ty: %d...%d\n",x_start,x_end,y_start,y_end);
-
     for (int i = y_start; i < y_end; ++i)
         for (int j = x_start; j < x_end; ++j)
         {
             g[l].f[i * f_x + j] = (1.0 * (g[l - 1].Res[(2 * i - 1 - 1) * l_x + 2 * j - 1 - 1] + g[l - 1].Res[(2 * i - 1 - 1) * l_x + 2 * j + 1 - 1] + g[l - 1].Res[(2 * i + 1 - 1) * l_x + 2 * j - 1 - 1] + g[l - 1].Res[(2 * i + 1 - 1) * l_x + 2 * j + 1 - 1]) + 2.0 * (g[l - 1].Res[(2 * i - 1 - 1) * l_x + 2 * j - 1] + g[l - 1].Res[(2 * i - 1) * l_x + 2 * j - 1 - 1] + g[l - 1].Res[(2 * i + 1 - 1) * l_x + 2 * j - 1] + g[l - 1].Res[(2 * i - 1) * l_x + 2 * j + 1 - 1]) + 4.0 * (g[l - 1].Res[(2 * i - 1) * l_x + 2 * j - 1])) * 0.0625;
-            // printf("f[%d, %d] = %f\n",i-1,j-1,g[l].f[i * f_x + j]);
         }
     // for (size_t i = 1; i < g[l].N - 1; i++)
     //     for (size_t j = 1; j < g[l].N - 1; j++)

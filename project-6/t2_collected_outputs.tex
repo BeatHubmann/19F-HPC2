@@ -1,0 +1,160 @@
+\begin{lstlisting}[basicstyle=\tiny, frame=single, caption={Task 2: Collected Euler outputs.}, label={lst:1}]
+
+Pure MPI:          1 node(s) / 24 *  1 = 24 thread(s): FULL
+-----------------------------------------------------------
+Execution Times:
+  Compute:     1.0350s
+  MPI_Irecv:   0.0003s
+  MPI_Isend:   0.0021s
+  Packing:     0.0000s
+  Unpacking:   0.0000s
+  MPI_Waitall: 0.4012s
+---------------------
+Total Time:    1.4423s
+L2 Norm:       0.9811283499
+
+
+Hybrid MPI/OpenMP: 1 node(s) /  4 *  6 = 24 thread(s): FULL 
+-----------------------------------------------------------
+[eu-c7-104-11:09836] SETTING BINDING TO CORE
+[eu-c7-104-11:09836] MCW rank 0 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/../../../../../..][../../../../../../../../../../../..]
+[eu-c7-104-11:09836] MCW rank 1 bound to socket 0[core 6[hwt 0-1]], socket 0[core 7[hwt 0-1]], socket 0[core 8[hwt 0-1]], socket 0[core 9[hwt 0-1]], socket 0[core 10[hwt 0-1]], socket 0[core 11[hwt 0-1]]: [../../../../../../BB/BB/BB/BB/BB/BB][../../../../../../../../../../../..]
+[eu-c7-104-11:09836] MCW rank 2 bound to socket 1[core 12[hwt 0-1]], socket 1[core 13[hwt 0-1]], socket 1[core 14[hwt 0-1]], socket 1[core 15[hwt 0-1]], socket 1[core 16[hwt 0-1]], socket 1[core 17[hwt 0-1]]: [../../../../../../../../../../../..][BB/BB/BB/BB/BB/BB/../../../../../..]
+[eu-c7-104-11:09836] MCW rank 3 bound to socket 1[core 18[hwt 0-1]], socket 1[core 19[hwt 0-1]], socket 1[core 20[hwt 0-1]], socket 1[core 21[hwt 0-1]], socket 1[core 22[hwt 0-1]], socket 1[core 23[hwt 0-1]]: [../../../../../../../../../../../..][../../../../../../BB/BB/BB/BB/BB/BB]
+Execution Times:
+  Compute:     6.8342s
+  MPI_Irecv:   0.0003s
+  MPI_Isend:   0.0041s
+  Packing:     0.0000s
+  Unpacking:   0.0000s
+  MPI_Waitall: 2.2758s
+---------------------
+Total Time:    9.1238s
+L2 Norm:       0.9887095465
+
+
+Hybrid MPI/OpenMP: 1 node(s) /  2 * 12 = 24 thread(s): FULL
+-----------------------------------------------------------
+[eu-c7-104-10:46038] SETTING BINDING TO CORE
+[eu-c7-104-10:46038] MCW rank 0 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]], socket 0[core 6[hwt 0-1]], socket 0[core 7[hwt 0-1]], socket 0[core 8[hwt 0-1]], socket 0[core 9[hwt 0-1]], socket 0[core 10[hwt 0-1]], socket 0[core 11[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB][../../../../../../../../../../../..]
+[eu-c7-104-10:46038] MCW rank 1 bound to socket 1[core 12[hwt 0-1]], socket 1[core 13[hwt 0-1]], socket 1[core 14[hwt 0-1]], socket 1[core 15[hwt 0-1]], socket 1[core 16[hwt 0-1]], socket 1[core 17[hwt 0-1]], socket 1[core 18[hwt 0-1]], socket 1[core 19[hwt 0-1]], socket 1[core 20[hwt 0-1]], socket 1[core 21[hwt 0-1]], socket 1[core 22[hwt 0-1]], socket 1[core 23[hwt 0-1]]: [../../../../../../../../../../../..][BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB]
+Execution Times:
+  Compute:     7.7436s
+  MPI_Irecv:   0.0003s
+  MPI_Isend:   0.0043s
+  Packing:     0.0000s
+  Unpacking:   0.0000s
+  MPI_Waitall: 2.4361s
+---------------------
+Total Time:    10.1844s
+L2 Norm:       0.9887095464
+
+
+Pure MPI:          2 node(s) / 48 *  1 = 48 thread(s): FULL
+-----------------------------------------------------------
+Execution Times:
+  Compute:     0.5175s
+  MPI_Irecv:   0.0006s
+  MPI_Isend:   0.0038s
+  Packing:     0.0000s
+  Unpacking:   0.0000s
+  MPI_Waitall: 0.3561s
+---------------------
+Total Time:    0.9141s
+L2 Norm:       0.9811283499
+
+
+Hybrid MPI/OpenMP: 2 node(s) /  4 *  6 = 24 thread(s): PARTIAL 
+-----------------------------------------------------------
+[eu-c7-104-15:08559] SETTING BINDING TO CORE
+[eu-c7-104-12:45959] MCW rank 1 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/../../../../../..][../../../../../../../../../../../..]
+[eu-c7-104-12:45959] MCW rank 3 bound to socket 0[core 6[hwt 0-1]], socket 0[core 7[hwt 0-1]], socket 0[core 8[hwt 0-1]], socket 0[core 9[hwt 0-1]], socket 0[core 10[hwt 0-1]], socket 0[core 11[hwt 0-1]]: [../../../../../../BB/BB/BB/BB/BB/BB][../../../../../../../../../../../..]
+[eu-c7-104-15:08559] MCW rank 0 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/../../../../../..][../../../../../../../../../../../..]
+[eu-c7-104-15:08559] MCW rank 2 bound to socket 0[core 6[hwt 0-1]], socket 0[core 7[hwt 0-1]], socket 0[core 8[hwt 0-1]], socket 0[core 9[hwt 0-1]], socket 0[core 10[hwt 0-1]], socket 0[core 11[hwt 0-1]]: [../../../../../../BB/BB/BB/BB/BB/BB][../../../../../../../../../../../..]
+Execution Times:
+  Compute:     6.3606s
+  MPI_Irecv:   0.0009s
+  MPI_Isend:   0.0040s
+  Packing:     0.0000s
+  Unpacking:   0.0000s
+  MPI_Waitall: 12.6248s
+---------------------
+Total Time:    19.1037s
+L2 Norm:       0.9887095465
+
+
+Hybrid MPI/OpenMP: 2 node(s) /  4 * 12 = 48 thread(s): FULL
+-----------------------------------------------------------
+[eu-c7-102-11:34256] SETTING BINDING TO CORE
+[eu-c7-102-11:34256] MCW rank 0 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]], socket 0[core 6[hwt 0-1]], socket 0[core 7[hwt 0-1]], socket 0[core 8[hwt 0-1]], socket 0[core 9[hwt 0-1]], socket 0[core 10[hwt 0-1]], socket 0[core 11[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB][../../../../../../../../../../../..]
+[eu-c7-102-11:34256] MCW rank 2 bound to socket 1[core 12[hwt 0-1]], socket 1[core 13[hwt 0-1]], socket 1[core 14[hwt 0-1]], socket 1[core 15[hwt 0-1]], socket 1[core 16[hwt 0-1]], socket 1[core 17[hwt 0-1]], socket 1[core 18[hwt 0-1]], socket 1[core 19[hwt 0-1]], socket 1[core 20[hwt 0-1]], socket 1[core 21[hwt 0-1]], socket 1[core 22[hwt 0-1]], socket 1[core 23[hwt 0-1]]: [../../../../../../../../../../../..][BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB]
+[eu-c7-102-09:47974] MCW rank 1 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]], socket 0[core 6[hwt 0-1]], socket 0[core 7[hwt 0-1]], socket 0[core 8[hwt 0-1]], socket 0[core 9[hwt 0-1]], socket 0[core 10[hwt 0-1]], socket 0[core 11[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB][../../../../../../../../../../../..]
+[eu-c7-102-09:47974] MCW rank 3 bound to socket 1[core 12[hwt 0-1]], socket 1[core 13[hwt 0-1]], socket 1[core 14[hwt 0-1]], socket 1[core 15[hwt 0-1]], socket 1[core 16[hwt 0-1]], socket 1[core 17[hwt 0-1]], socket 1[core 18[hwt 0-1]], socket 1[core 19[hwt 0-1]], socket 1[core 20[hwt 0-1]], socket 1[core 21[hwt 0-1]], socket 1[core 22[hwt 0-1]], socket 1[core 23[hwt 0-1]]: [../../../../../../../../../../../..][BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB]
+Execution Times:
+  Compute:     3.8945s
+  MPI_Irecv:   0.0022s
+  MPI_Isend:   0.0034s
+  Packing:     0.0000s
+  Unpacking:   0.0000s
+  MPI_Waitall: 22.2460s
+---------------------
+Total Time:    26.3027s
+L2 Norm:       0.9887095465
+
+
+Pure MPI:          4 node(s) / 96 *  1 = 96 thread(s): FULL
+-----------------------------------------------------------
+Execution Times:
+  Compute:     0.1653s
+  MPI_Irecv:   0.0028s
+  MPI_Isend:   0.0018s
+  Packing:     0.0000s
+  Unpacking:   0.0000s
+  MPI_Waitall: 5.6531s
+---------------------
+Total Time:    6.0211s
+L2 Norm:       0.9811237635
+
+
+Hybrid MPI/OpenMP: 4 node(s) /  4 *  6 = 24 thread(s): PARTIAL 
+-----------------------------------------------------------
+[eu-c7-118-08:24464] SETTING BINDING TO CORE
+[eu-c7-101-13:17817] MCW rank 1 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/../../../../../..][../../../../../../../../../../../..]
+[eu-c7-101-10:36177] MCW rank 3 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/../../../../../..][../../../../../../../../../../../..]
+[eu-c7-118-08:24464] MCW rank 0 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/../../../../../..][../../../../../../../../../../../..]
+[eu-c7-101-06:14872] MCW rank 2 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/../../../../../..][../../../../../../../../../../../..]
+Execution Times:
+  Compute:     5.7847s
+  MPI_Irecv:   0.0015s
+  MPI_Isend:   0.0061s
+  Packing:     0.0000s
+  Unpacking:   0.0000s
+  MPI_Waitall: 12.4602s
+---------------------
+Total Time:    18.2548s
+L2 Norm:       0.9887095465
+
+
+Hybrid MPI/OpenMP: 4 node(s) /  8 * 12 = 96 thread(s): FULL
+-----------------------------------------------------------
+[eu-c7-119-05:48662] SETTING BINDING TO CORE
+[eu-c7-119-05:48662] MCW rank 0 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]], socket 0[core 6[hwt 0-1]], socket 0[core 7[hwt 0-1]], socket 0[core 8[hwt 0-1]], socket 0[core 9[hwt 0-1]], socket 0[core 10[hwt 0-1]], socket 0[core 11[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB][../../../../../../../../../../../..]
+[eu-c7-119-05:48662] MCW rank 4 bound to socket 1[core 12[hwt 0-1]], socket 1[core 13[hwt 0-1]], socket 1[core 14[hwt 0-1]], socket 1[core 15[hwt 0-1]], socket 1[core 16[hwt 0-1]], socket 1[core 17[hwt 0-1]], socket 1[core 18[hwt 0-1]], socket 1[core 19[hwt 0-1]], socket 1[core 20[hwt 0-1]], socket 1[core 21[hwt 0-1]], socket 1[core 22[hwt 0-1]], socket 1[core 23[hwt 0-1]]: [../../../../../../../../../../../..][BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB]
+[eu-c7-118-07:38082] MCW rank 1 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]], socket 0[core 6[hwt 0-1]], socket 0[core 7[hwt 0-1]], socket 0[core 8[hwt 0-1]], socket 0[core 9[hwt 0-1]], socket 0[core 10[hwt 0-1]], socket 0[core 11[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB][../../../../../../../../../../../..]
+[eu-c7-101-13:17924] MCW rank 3 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]], socket 0[core 6[hwt 0-1]], socket 0[core 7[hwt 0-1]], socket 0[core 8[hwt 0-1]], socket 0[core 9[hwt 0-1]], socket 0[core 10[hwt 0-1]], socket 0[core 11[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB][../../../../../../../../../../../..]
+[eu-c7-118-07:38082] MCW rank 5 bound to socket 1[core 12[hwt 0-1]], socket 1[core 13[hwt 0-1]], socket 1[core 14[hwt 0-1]], socket 1[core 15[hwt 0-1]], socket 1[core 16[hwt 0-1]], socket 1[core 17[hwt 0-1]], socket 1[core 18[hwt 0-1]], socket 1[core 19[hwt 0-1]], socket 1[core 20[hwt 0-1]], socket 1[core 21[hwt 0-1]], socket 1[core 22[hwt 0-1]], socket 1[core 23[hwt 0-1]]: [../../../../../../../../../../../..][BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB]
+[eu-c7-101-13:17924] MCW rank 7 bound to socket 1[core 12[hwt 0-1]], socket 1[core 13[hwt 0-1]], socket 1[core 14[hwt 0-1]], socket 1[core 15[hwt 0-1]], socket 1[core 16[hwt 0-1]], socket 1[core 17[hwt 0-1]], socket 1[core 18[hwt 0-1]], socket 1[core 19[hwt 0-1]], socket 1[core 20[hwt 0-1]], socket 1[core 21[hwt 0-1]], socket 1[core 22[hwt 0-1]], socket 1[core 23[hwt 0-1]]: [../../../../../../../../../../../..][BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB]
+[eu-c7-118-08:24568] MCW rank 2 bound to socket 0[core 0[hwt 0-1]], socket 0[core 1[hwt 0-1]], socket 0[core 2[hwt 0-1]], socket 0[core 3[hwt 0-1]], socket 0[core 4[hwt 0-1]], socket 0[core 5[hwt 0-1]], socket 0[core 6[hwt 0-1]], socket 0[core 7[hwt 0-1]], socket 0[core 8[hwt 0-1]], socket 0[core 9[hwt 0-1]], socket 0[core 10[hwt 0-1]], socket 0[core 11[hwt 0-1]]: [BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB][../../../../../../../../../../../..]
+[eu-c7-118-08:24568] MCW rank 6 bound to socket 1[core 12[hwt 0-1]], socket 1[core 13[hwt 0-1]], socket 1[core 14[hwt 0-1]], socket 1[core 15[hwt 0-1]], socket 1[core 16[hwt 0-1]], socket 1[core 17[hwt 0-1]], socket 1[core 18[hwt 0-1]], socket 1[core 19[hwt 0-1]], socket 1[core 20[hwt 0-1]], socket 1[core 21[hwt 0-1]], socket 1[core 22[hwt 0-1]], socket 1[core 23[hwt 0-1]]: [../../../../../../../../../../../..][BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB/BB]
+Execution Times:
+  Compute:     1.9564s
+  MPI_Irecv:   0.0017s
+  MPI_Isend:   0.0026s
+  Packing:     0.0000s
+  Unpacking:   0.0000s
+  MPI_Waitall: 10.4580s
+---------------------
+Total Time:    12.4772s
+L2 Norm:       0.9887095465
+
+\end{lstlisting}
